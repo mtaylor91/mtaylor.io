@@ -1,0 +1,42 @@
+
+.section-wrapper {
+  width: 100%;
+  height: 50%;
+  position: relative;
+}
+
+.section {
+  margin: auto;
+  position: absolute;
+}
+
+.section-top {
+  bottom: 0;
+}
+
+.section-bottom {
+  top: 0;
+}
+
+.section-top h1 {
+  color: #FC7753;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  display: inline-block;
+  margin: 0px;
+  padding: 20px;
+}
+
+.nav-link a {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+}
+
+.nav-link a h3 {
+  margin: 0px;
+  padding: 0px;
+}
