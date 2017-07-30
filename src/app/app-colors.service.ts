@@ -1,17 +1,19 @@
 
 export class AppColorsService {
-  foregroundPrimary: string;
-  foregroundComplement: string;
   backgroundPrimary: string;
   backgroundComplement: string;
-  accents: string;
+  foregroundPrimary: string;
+  foregroundComplement: string;
+  foregroundAccent: string;
+  foregroundPlain: string;
 
   constructor() {
-    this.foregroundPrimary =    "#FC7753";
-    this.foregroundComplement = "#66D7D1";
-    this.backgroundPrimary =    "#403D58";
-    this.backgroundComplement = "#F2EFEA";
-    this.accents =              "#DBD56E";
+    this.backgroundPrimary =    "#040F16";
+    this.backgroundComplement = "#FBFBFF";
+    this.foregroundPrimary =    "#01BAEF";
+    this.foregroundComplement = "#0B4F6C";
+    this.foregroundAccent =     "#F46036";
+    this.foregroundPlain =      "#FFFFFF";
   }
 
   getColor(selector, primary) {

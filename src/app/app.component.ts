@@ -17,12 +17,12 @@ export class AppComponent {
       target: "/blog"
     },
     {
-      text: "GitHub",
-      target: "/github"
-    },
-    {
       text: "Resume",
       target: "/resume"
+    },
+    {
+      text: "GitHub",
+      target: "/github"
     },
     {
       text: "Contact",
@@ -34,12 +34,106 @@ export class AppComponent {
     private colors: AppColorsService,
     private router: Router) {}
 
-  navlinkBackground(link) {
-    return this.colors.getColor("background",
-      this.router.isActive(link.target, true));
+  navStyle() {
+    return {'width': "100%"};
   }
 
-  navlinkColor(link) {
-    return this.colors.getColor("foreground", true);
+  navlinkStyle(link) {
+    var active = this.router.isActive(link.target, true);
+    var color;
+
+    if (active) {
+      color = this.colors.backgroundPrimary;
+    } else {
+      color = this.colors.backgroundComplement;
+    }
+
+    return {
+      'display': 'inline-block',
+      'margin': '0px',
+      'padding': '20px',
+      'background-color': color
+    };
+  }
+
+  navlinkHeadingStyle(link) {
+    var active = this.router.isActive(link.target, true);
+    var color;
+
+    if (active) {
+      color = this.colors.foregroundAccent;
+    } else {
+      color = this.colors.foregroundComplement;
+    }
+
+    return {
+      'margin': '0px',
+      'padding': '0px',
+      'color': color
+    };
+  }
+
+  titleStyle() {
+    return {
+      'color': this.colors.foregroundPrimary,
+      'padding': '20px',
+      'margin': '0px'
+    };
+  }
+
+  sectionStyle(name) {
+    var style = {};
+
+    if (this.router.isActive("/", true)) {
+      style['position'] = 'absolute';
+
+      if (name == "top") {
+        style['bottom'] = 0;
+      } else if (name == "bottom") {
+        style['top'] = 0;
+      }
+    } else {
+      style['width'] = '100%';
+      style['height'] = '100%';
+    }
+
+    return style;
+  }
+
+  sectionWrapperStyle(name) {
+    var style = {
+      'width': "100%"
+    };
+
+    if (this.router.isActive("/", true)) {
+      style['height'] = "50%";
+      style['position'] = "relative";
+    }
+
+    if (name == "top") {
+      style['background-color'] = this.colors.backgroundPrimary;
+    } else if (name == "bottom") {
+      style['background-color'] = this.colors.backgroundComplement;
+    }
+
+    return style;
+  }
+
+  containerStyle() {
+    return {
+      'height': '100%',
+      'background-color': this.colors.backgroundComplement
+    };
+  }
+
+  contentStyle() {
+    if (this.router.isActive("/", true)) {
+      return {'display': 'none'};
+    } else {
+      return {
+        'margin': '0px',
+        'padding': '20px'
+      };
+    }
   }
 }

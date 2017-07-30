@@ -1,32 +1,41 @@
 
-<!-- Top Section -->
-<div class="section-wrapper"
-    [ngStyle]="{'background-color': colors.backgroundPrimary}">
-  <div class="section section-top">
-    <h1>{{heading}}</h1>
+<!-- App Container -->
+<div [ngStyle]="containerStyle()">
+
+  <!-- Top Section -->
+  <div [ngStyle]="sectionWrapperStyle('top')">
+    <div [ngStyle]="sectionStyle('top')">
+      <a routerLink="/" [ngStyle]="{'text-decoration': 'none'}">
+        <h1 [ngStyle]="titleStyle()">
+          {{heading}}
+        </h1>
+      </a>
+    </div>
   </div>
-</div>
 
-<!-- Bottom Section -->
-<div class="section-wrapper"
-    [ngStyle]="{'background-color': colors.backgroundComplement}">
-  <div class="section section-bottom">
+  <!-- Bottom Section -->
+  <div [ngStyle]="sectionWrapperStyle('bottom')">
+    <div [ngStyle]="sectionStyle('bottom')">
 
-    <!-- Navigation Bar -->
-    <div class="nav-menu">
-      <div *ngFor="let link of links"
-          class="nav-link"
-          routerLinkActive="active"
-          [ngStyle]="{'background-color': navlinkBackground(link)}">
-        <a routerLink="{{link.target}}">
-          <h3 [ngStyle]="{'color': navlinkColor(link)}">
-            {{link.text}}
-          </h3>
-        </a>
+      <!-- Navigation Bar -->
+      <div [ngStyle]="navStyle()">
+        <div *ngFor="let link of links"
+            routerLinkActive="active"
+            [ngStyle]="navlinkStyle(link)">
+          <a routerLink="{{link.target}}"
+              [ngStyle]="{'text-decoration': 'none'}">
+            <h3 [ngStyle]="navlinkHeadingStyle(link)">
+              {{link.text}}
+            </h3>
+          </a>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div [ngStyle]="contentStyle()">
+        <router-outlet></router-outlet>
       </div>
     </div>
-
-    <!-- Content -->
-    <router-outlet></router-outlet>
   </div>
+
 </div>
