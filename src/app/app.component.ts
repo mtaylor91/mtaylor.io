@@ -69,7 +69,8 @@ export class AppComponent {
     return {
       'margin': '0px',
       'padding': '0px',
-      'color': color
+      'color': color,
+      'font-family': 'Poiret One'
     };
   }
 
@@ -77,7 +78,8 @@ export class AppComponent {
     return {
       'color': this.colors.foregroundPrimary,
       'padding': '20px',
-      'margin': '0px'
+      'margin': '0px',
+      'font-family': 'Poiret One'
     };
   }
 

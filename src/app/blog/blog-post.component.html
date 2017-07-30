@@ -1,7 +1,11 @@
 
 <!-- Blog Content -->
 <div [ngStyle]="postContentStyle()">
-  <h1 [ngStyle]="postTitleStyle()">{{title}}</h1>
+  <h1 [ngStyle]="postTitleStyle()">{{post.name}}</h1>
+
+  <!-- Inject HTML content from post -->
+  <div [innerHTML]="content">
+  </div>
 </div>
 
 <!-- Blog Navigation -->

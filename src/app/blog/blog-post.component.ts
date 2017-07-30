@@ -1,34 +1,48 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 import { AppColorsService } from '../app-colors.service';
+
+import { BlogPost } from './blog-post';
+import { BlogPostService } from './blog-post.service';
 
 @Component({
   selector: 'blog-post',
   templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog.component.css']
+  styleUrls: ['./blog-post.component.css']
 })
-export class BlogPostComponent {
-  title = "Test Post"
+export class BlogPostComponent implements OnInit {
+  post: BlogPost
+  posts: BlogPost[]
+  content: SafeHtml
+
+  private selectedPostName: string;
 
   constructor(
     private colors: AppColorsService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: BlogPostService,
+    private sanitizer: DomSanitizer) { }
 
-  posts = [
-    {
-      name: "Test Post",
-      link: '/blog/test'
-    },
-    {
-      name: "Second Post",
-      link: '/blog/second'
-    },
-    {
-      name: "Programming",
-      link: '/blog/programming'
-    }
-  ];
+  ngOnInit() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.selectedPostName = params.get('name');
+      this.posts = this.service.getPosts();
+      for (let post of this.posts) {
+        if (this.router.isActive((post as any).link, false)) {
+          this.post = post;
+          this.content = this.sanitizer
+            .bypassSecurityTrustHtml((this.post as any).content);
+          console.log(this.content);
+        }
+      }
+    })
+  }
 
   postTitleStyle() {
     return {
