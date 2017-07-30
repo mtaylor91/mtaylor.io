@@ -7,13 +7,17 @@
   <h3>{{employer.name}}</h3>
 
   <div *ngFor="let position of employer.positions">
-    <h4>{{position.name}}</h4>
-    <h4>{{position.dates}}</h4>
-  </div>
 
-  <ul>
-    <li *ngFor="let responsibility of employer.responsibilities">
-      {{responsibility}}
-    </li>
-  </ul>
+    <div>
+      <h4 [ngStyle]="positionNameStyle(position)">{{position.name}}</h4>
+      <h4 [ngStyle]="positionDatesStyle(position)">{{position.dates}}</h4>
+    </div>
+
+    <ul>
+      <li *ngFor="let responsibility of position.responsibilities">
+        {{responsibility}}
+      </li>
+    </ul>
+
+  </div>
 </div>

@@ -16,4 +16,12 @@ export class ResumeSkillsComponent implements OnInit {
   ngOnInit() {
     this.groups = this.service.getSkillGroups()
   }
+
+  skillsStyle() {
+    return {
+      'display': 'flex',
+      'flex-wrap': 'wrap',
+      'justify-content': 'space-between'
+    }
+  }
 }

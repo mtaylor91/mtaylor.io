@@ -3,9 +3,11 @@
 <h2>Skills</h2>
 <hr/>
 
-<div *ngFor="let group of groups">
-  <h3>{{group.name}}</h3>
-  <ul>
-    <li *ngFor="let skill of group.skills">{{skill.name}}</li>
-  </ul>
+<div [ngStyle]="skillsStyle()">
+  <div *ngFor="let group of groups">
+    <h3>{{group.name}}</h3>
+    <ul>
+      <li *ngFor="let skill of group.skills">{{skill.name}}</li>
+    </ul>
+  </div>
 </div>

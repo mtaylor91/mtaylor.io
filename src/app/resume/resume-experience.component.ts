@@ -16,4 +16,17 @@ export class ResumeExperienceComponent implements OnInit {
   ngOnInit() {
     this.employers = this.service.getEmployers()
   }
+
+  positionNameStyle(position) {
+    return {
+      'display': 'inline-block'
+    }
+  }
+
+  positionDatesStyle(position) {
+    return {
+      'float': 'right',
+      'display': 'inline-block'
+    }
+  }
 }
