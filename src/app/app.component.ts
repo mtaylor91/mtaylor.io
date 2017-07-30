@@ -43,7 +43,7 @@ export class AppComponent {
     var color;
 
     if (active) {
-      color = this.colors.backgroundPrimary;
+      color = this.colors.backgroundComplement;
     } else {
       color = this.colors.backgroundComplement;
     }
@@ -61,9 +61,9 @@ export class AppComponent {
     var color;
 
     if (active) {
-      color = this.colors.foregroundAccent;
-    } else {
       color = this.colors.foregroundComplement;
+    } else {
+      color = this.colors.foregroundAccent;
     }
 
     return {
@@ -132,7 +132,8 @@ export class AppComponent {
     } else {
       return {
         'margin': '0px',
-        'padding': '20px'
+        'padding-left': '20px',
+        'padding-right': '20px',
       };
     }
   }
