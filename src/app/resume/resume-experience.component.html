@@ -1,0 +1,19 @@
+
+<hr/>
+<h2>Experience</h2>
+<hr/>
+
+<div *ngFor="let employer of employers">
+  <h3>{{employer.name}}</h3>
+
+  <div *ngFor="let position of employer.positions">
+    <h4>{{position.name}}</h4>
+    <h4>{{position.dates}}</h4>
+  </div>
+
+  <ul>
+    <li *ngFor="let responsibility of employer.responsibilities">
+      {{responsibility}}
+    </li>
+  </ul>
+</div>

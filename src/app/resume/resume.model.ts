@@ -9,18 +9,23 @@ import { ResumeSkillsService } from './resume-skills.service';
 import { ResumeProjectsComponent } from './resume-projects.component';
 import { ResumeProjectsService } from './resume-projects.service';
 
+import { ResumeExperienceComponent } from './resume-experience.component';
+import { ResumeExperienceService } from './resume-experience.service';
+
 @NgModule({
   declarations: [
     ResumeComponent,
     ResumeSkillsComponent,
-    ResumeProjectsComponent
+    ResumeProjectsComponent,
+    ResumeExperienceComponent
   ],
   imports: [
     CommonModule
   ],
   providers: [
     ResumeSkillsService,
-    ResumeProjectsService
+    ResumeProjectsService,
+    ResumeExperienceService
   ]
 })
 export class ResumeModel {}
