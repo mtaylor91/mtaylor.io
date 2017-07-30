@@ -32,14 +32,14 @@ export class AppComponent {
 
   constructor(
     private colors: AppColorsService,
-    private router: Router) {}
+    private router: Router) { }
 
   navStyle() {
     return {'width': "100%"};
   }
 
   navlinkStyle(link) {
-    var active = this.router.isActive(link.target, true);
+    var active = this.router.isActive(link.target, false);
     var color;
 
     if (active) {
@@ -57,7 +57,7 @@ export class AppComponent {
   }
 
   navlinkHeadingStyle(link) {
-    var active = this.router.isActive(link.target, true);
+    var active = this.router.isActive(link.target, false);
     var color;
 
     if (active) {
@@ -124,17 +124,5 @@ export class AppComponent {
       'height': '100%',
       'background-color': this.colors.backgroundComplement
     };
-  }
-
-  contentStyle() {
-    if (this.router.isActive("/", true)) {
-      return {'display': 'none'};
-    } else {
-      return {
-        'margin': '0px',
-        'padding-left': '20px',
-        'padding-right': '20px',
-      };
-    }
   }
 }

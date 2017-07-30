@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppColorsService } from './app-colors.service';
 
-import { BlogComponent } from './blog/blog.component';
+import { BlogModel } from './blog/blog.model';
 import { ResumeComponent } from './resume/resume.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
@@ -13,14 +13,14 @@ import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BlogComponent,
     ResumeComponent,
     ContactComponent,
     LoginComponent
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule
+    BrowserModule,
+    BlogModel
   ],
   providers: [
     AppColorsService

@@ -1,0 +1,16 @@
+
+<!-- Blog Content -->
+<div [ngStyle]="postContentStyle()">
+  <h1 [ngStyle]="postTitleStyle()">{{title}}</h1>
+</div>
+
+<!-- Blog Navigation -->
+<div [ngStyle]="navigationStyle()">
+  <ul>
+    <li *ngFor="let post of posts" routerLinkActive="active">
+      <a routerLink="{{post.link}}" [ngStyle]="navigationPostStyle(post)">
+        {{post.name}}
+      </a>
+    </li>
+  </ul>
+</div>
