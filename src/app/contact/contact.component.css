@@ -1,0 +1,12 @@
+
+input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  outline: none;
+}
+
+button {
+  float: right;
+  border: none;
+  background: none;
+}

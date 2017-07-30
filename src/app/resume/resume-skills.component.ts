@@ -24,4 +24,10 @@ export class ResumeSkillsComponent implements OnInit {
       'justify-content': 'space-between'
     }
   }
+
+  skillGroupStyle() {
+    return {
+      'min-width': '200px'
+    }
+  }
 }

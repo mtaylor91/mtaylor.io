@@ -16,7 +16,7 @@ const EMPLOYERS: ResumeExperienceEmployer[] = [
       },
       {
         name: "Software Engineer I",
-        dates: "2015/07 - 2016/06",
+        dates: "2015/07 - 2016/07",
         responsibilities: []
       },
       {

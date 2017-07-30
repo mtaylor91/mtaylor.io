@@ -7,20 +7,20 @@ import { AppColorsService } from './app-colors.service';
 
 import { BlogModel } from './blog/blog.model';
 import { ResumeModel } from './resume/resume.model';
-import { ContactComponent } from './contact/contact.component';
+import { ContactModel } from './contact/contact.model';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactComponent,
     LoginComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BlogModel,
-    ResumeModel
+    ResumeModel,
+    ContactModel
   ],
   providers: [
     AppColorsService
