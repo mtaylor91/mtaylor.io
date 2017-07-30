@@ -3,7 +3,7 @@ import { ResumeProjectSummary } from './resume-projects';
 const PROJECTS: ResumeProjectSummary[] = [
   {
     name: "Testing Framework (Ericsson)",
-    description: "Proprietary testing framework for components of a router OS",
+    description: "Proprietary testing framework for testing service daemons of a carrier-grade router OS",
     features: [
       "Test cases implemented in Python for rapid prototyping",
       "Provided ability for tests to impersonate arbitrary IPC endpoints",
@@ -19,7 +19,7 @@ const PROJECTS: ResumeProjectSummary[] = [
   },
   {
     name: "Telecommunications Data-Entry Client",
-    description: "Data entry client for completing responses for number porting requests",
+    description: "Data entry client for completing responses to phone number porting requests from other carriers",
     features: [
       "Read port requests from an SQL database and prepared them for processing by representatives",
       "Provided a streamlined UI for representatives to process port request orders",
@@ -49,7 +49,7 @@ const PROJECTS: ResumeProjectSummary[] = [
     ]
   },
   {
-    name: "Home Server/Workstation/Router",
+    name: "Home Lab/Server/Workstation/Router",
     description: "Personal computer/server/router",
     features: [
       "Linux Hypervisor",

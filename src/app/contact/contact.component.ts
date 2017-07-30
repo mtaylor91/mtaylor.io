@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppColorsService } from '../app-colors.service';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  constructor(private colors: AppColorsService) { }
 
   ngOnInit() {
   }
@@ -21,26 +23,35 @@ export class ContactComponent implements OnInit {
 
   nameInputStyle() {
     return {
+      'width': '100%',
       'margin': '5px',
       'border': '2px',
-      'padding': '2px'
+      'padding': '2px',
+      'box-sizing': 'border-box',
+      'background-color': this.colors.backgroundComplement
     }
   }
 
   emailInputStyle() {
     return {
+      'width': '100%',
       'margin': '5px',
       'border': '2px',
-      'padding': '2px'
+      'padding': '2px',
+      'box-sizing': 'border-box',
+      'background-color': this.colors.backgroundComplement
     }
   }
 
   messageInputStyle() {
     return {
+      'width': '100%',
       'margin': '5px',
       'border': '2px',
       'padding': '2px',
-      'resize': 'none'
+      'resize': 'none',
+      'box-sizing': 'border-box',
+      'background-color': this.colors.backgroundComplement
     }
   }
 

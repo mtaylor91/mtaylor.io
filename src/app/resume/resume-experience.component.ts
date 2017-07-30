@@ -19,14 +19,16 @@ export class ResumeExperienceComponent implements OnInit {
 
   positionNameStyle(position) {
     return {
-      'display': 'inline-block'
+      'display': 'inline-block',
+      'margin': '5px'
     }
   }
 
   positionDatesStyle(position) {
     return {
       'float': 'right',
-      'display': 'inline-block'
+      'display': 'inline-block',
+      'margin': '2px'
     }
   }
 }
