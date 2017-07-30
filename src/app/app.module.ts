@@ -6,21 +6,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppColorsService } from './app-colors.service';
 
 import { BlogModel } from './blog/blog.model';
-import { ResumeComponent } from './resume/resume.component';
+import { ResumeModel } from './resume/resume.model';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResumeComponent,
     ContactComponent,
     LoginComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
-    BlogModel
+    BlogModel,
+    ResumeModel
   ],
   providers: [
     AppColorsService

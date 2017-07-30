@@ -15,5 +15,4 @@ import { BlogRoutingModule } from './blog-routing.module';
   ],
   providers: [BlogPostService]
 })
-
 export class BlogModel {}
