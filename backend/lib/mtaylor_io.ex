@@ -1,18 +1,17 @@
 defmodule MTaylor.IO.Backend do
   @moduledoc """
-  Documentation for MTaylor.IO.Backend.
+  API backend for https://mtaylor.io.
   """
+  use Plug.Router
 
-  @doc """
-  Hello world.
+  plug :match
+  plug :dispatch
 
-  ## Examples
+  get "/hello" do
+    send_resp(conn, 200, "world")
+  end
 
-      iex> MTaylor.IO.Backend.hello
-      :world
-
-  """
-  def hello do
-    :world
+  match _ do
+    send_resp(conn, 404, "Not Found")
   end
 end
