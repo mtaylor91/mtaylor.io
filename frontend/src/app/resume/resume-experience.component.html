@@ -13,7 +13,7 @@
       <h4 [ngStyle]="positionDatesStyle(position)">{{position.dates}}</h4>
     </div>
 
-    <ul>
+    <ul *ngIf="position.responsibilities.length > 0">
       <li *ngFor="let responsibility of position.responsibilities">
         {{responsibility}}
       </li>
