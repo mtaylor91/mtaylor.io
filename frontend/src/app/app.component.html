@@ -22,7 +22,17 @@
         <div *ngFor="let link of links"
             routerLinkActive="active"
             [ngStyle]="navlinkStyle(link)">
-          <a routerLink="{{link.target}}"
+          <!-- Local links use Angular router -->
+          <a *ngIf="! link.target.startsWith('http')"
+              routerLink="{{link.target}}"
+              [ngStyle]="{'text-decoration': 'none'}">
+            <h3 [ngStyle]="navlinkHeadingStyle(link)">
+              {{link.text}}
+            </h3>
+          </a>
+          <!-- Construct normal links for external targets -->
+          <a *ngIf="link.target.startsWith('http')"
+              href="{{link.target}}"
               [ngStyle]="{'text-decoration': 'none'}">
             <h3 [ngStyle]="navlinkHeadingStyle(link)">
               {{link.text}}

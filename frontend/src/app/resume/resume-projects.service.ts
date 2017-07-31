@@ -2,7 +2,7 @@ import { ResumeProjectSummary } from './resume-projects';
 
 const PROJECTS: ResumeProjectSummary[] = [
   {
-    name: "Testing Framework (Ericsson)",
+    name: "Testing Framework",
     description: "Proprietary testing framework for testing service daemons of a carrier-grade router OS",
     features: [
       "Test cases implemented in Python for rapid prototyping",

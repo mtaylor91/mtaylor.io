@@ -22,7 +22,7 @@ export class AppComponent {
     },
     {
       text: "GitHub",
-      target: "/github"
+      target: "https://github.com/mtaylor91"
     },
     {
       text: "Contact",
