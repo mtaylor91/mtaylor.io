@@ -1,0 +1,50 @@
+
+<!-- User Container -->
+<div *ngIf="loggedIn" [ngStyle]="style()">
+  <!-- Logout button -->
+  <button *ngIf="showControls"
+      [ngStyle]="buttonStyle()"
+      (click)="attemptLogout()">
+    Logout
+  </button>
+</div>
+
+<!-- Login Container -->
+<div *ngIf="!loggedIn" [ngStyle]="style()">
+
+  <!-- Username input -->
+  <input *ngIf="showControls"
+      [(ngModel)]="usernameInput"
+      [ngStyle]="usernameInputStyle()"
+      (keyup.enter)="attemptLogin()"
+      type="text" placeholder="username">
+
+  <!-- Password input -->
+  <input *ngIf="showControls"
+      [(ngModel)]="passwordInput"
+      [ngStyle]="passwordInputStyle()"
+      (keyup.enter)="attemptLogin()"
+      type="password" placeholder="password">
+
+  <!-- Login button -->
+  <button *ngIf="!showControls"
+      [ngStyle]="buttonStyle()"
+      (click)="showLoginControls()">
+    Login
+  </button>
+
+  <!-- Submit button -->
+  <button *ngIf="showControls"
+      [ngStyle]="buttonStyle()"
+      (click)="attemptLogin()"
+      (keyup.enter)="attemptLogin()">
+    Submit
+  </button>
+
+  <!-- Cancel button -->
+  <button *ngIf="showControls"
+      [ngStyle]="buttonStyle()"
+      (click)="hideLoginControls()">
+    Cancel
+  </button>
+</div>

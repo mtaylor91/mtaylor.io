@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -8,7 +9,6 @@ import 'rxjs/add/operator/switchMap';
 import { AppColorsService } from '../app-colors.service';
 
 import { BlogPost } from './blog-post';
-import { BlogPostService } from './blog-post.service';
 
 @Component({
   selector: 'blog-post',
@@ -19,28 +19,33 @@ export class BlogPostComponent implements OnInit {
   post: BlogPost
   posts: BlogPost[]
   content: SafeHtml
+  loading: boolean
 
   private selectedPostName: string;
 
   constructor(
+    private http: HttpClient,
     private colors: AppColorsService,
     private router: Router,
     private route: ActivatedRoute,
-    private service: BlogPostService,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.loading = true;
+    this.posts = [];
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.selectedPostName = params.get('name');
-      this.posts = this.service.getPosts();
-      for (let post of this.posts) {
-        if (this.router.isActive((post as any).link, false)) {
-          this.post = post;
-          this.content = this.sanitizer
-            .bypassSecurityTrustHtml((this.post as any).content);
-          console.log(this.content);
+      this.http.get('http://localhost:4000/api/blog/posts').subscribe(data => {
+        this.posts = data["data"];
+        for (let post of this.posts) {
+          if (this.router.isActive(post.link, false)) {
+            this.post = post;
+            this.content = this.sanitizer
+              .bypassSecurityTrustHtml(this.post.content);
+            this.loading = false;
+          }
         }
-      }
+      });
     })
   }
 

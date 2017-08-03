@@ -1,6 +1,6 @@
 
 <!-- Blog Content -->
-<div [ngStyle]="postContentStyle()">
+<div *ngIf="!loading" [ngStyle]="postContentStyle()">
   <h1 [ngStyle]="postTitleStyle()">{{post.name}}</h1>
 
   <!-- Inject HTML content from post -->

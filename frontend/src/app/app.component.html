@@ -4,21 +4,30 @@
 
   <!-- Top Section -->
   <div [ngStyle]="sectionWrapperStyle('top')">
-    <div [ngStyle]="sectionStyle('top')">
-      <a routerLink="/" [ngStyle]="{'text-decoration': 'none'}">
-        <h1 [ngStyle]="titleStyle()">
-          {{heading}}
-        </h1>
-      </a>
+    <div [ngStyle]="sectionStyle()">
+
+      <!-- Title Logo / Home -->
+      <div [ngStyle]="titleStyle('top')">
+        <a routerLink="/" [ngStyle]="titleLinkStyle">
+          <h1 [ngStyle]="titleHeadingStyle()">
+            {{heading}}
+          </h1>
+        </a>
+      </div>
+
+      <!-- Login -->
+      <div [ngStyle]="loginStyle()">
+        <app-login></app-login>
+      </div>
     </div>
   </div>
 
   <!-- Bottom Section -->
   <div [ngStyle]="sectionWrapperStyle('bottom')">
-    <div [ngStyle]="sectionStyle('bottom')">
+    <div [ngStyle]="sectionStyle()">
 
       <!-- Navigation Bar -->
-      <div [ngStyle]="navStyle()">
+      <div [ngStyle]="navStyle">
         <div *ngFor="let link of links"
             routerLinkActive="active"
             [ngStyle]="navlinkStyle(link)">

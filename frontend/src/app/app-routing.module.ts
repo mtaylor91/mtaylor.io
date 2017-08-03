@@ -3,12 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { ResumeComponent } from './resume/resume.component';
 import { ContactComponent } from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: "resume", component: ResumeComponent },
   { path: "contact", component: ContactComponent },
-  { path: "login", component: LoginComponent },
 ];
 
 @NgModule({

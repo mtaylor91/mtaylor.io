@@ -12,7 +12,7 @@ const GROUPS: ResumeSkillGroup[] = [
       { name: "Java" },
       { name: "Bash" },
       { name: "Elm" },
-      { name: "Javascript" },
+      { name: "Javascript" }
     ]
   },
   {

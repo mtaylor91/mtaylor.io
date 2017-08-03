@@ -25,6 +25,10 @@ export class AppComponent {
       target: "https://github.com/mtaylor91"
     },
     {
+      text: "LinkedIn",
+      target: "https://www.linkedin.com/in/michael-taylor-2a766b43/"
+    },
+    {
       text: "Contact",
       target: "/contact"
     }
@@ -34,8 +38,49 @@ export class AppComponent {
     private colors: AppColorsService,
     private router: Router) { }
 
-  navStyle() {
-    return {'width': "100%"};
+  navStyle = {'width': "100%"};
+
+  titleLinkStyle = {'text-decoration': 'none'};
+
+  containerStyle() {
+    return {
+      'height': '100%',
+      'background-color': this.colors.backgroundComplement
+    };
+  }
+
+  titleStyle(name) {
+    var style = {
+      'display': 'inline-block',
+      'position': 'absolute'
+    };
+
+    if (this.router.isActive("/", true)) {
+      if (name == "top") {
+        style['bottom'] = 0;
+      } else if (name == "bottom") {
+        style['top'] = 0;
+      }
+    }
+
+    return style;
+  }
+
+  titleHeadingStyle() {
+    return {
+      'color': this.colors.foregroundPrimary,
+      'padding': '20px',
+      'margin': '0px',
+      'font-family': 'Poiret One'
+    };
+  }
+
+  loginStyle() {
+    return {
+      'display': 'inline-block',
+      'position': 'absolute',
+      'right': 0
+    }
   }
 
   navlinkStyle(link) {
@@ -74,42 +119,17 @@ export class AppComponent {
     };
   }
 
-  titleStyle() {
-    return {
-      'color': this.colors.foregroundPrimary,
-      'padding': '20px',
-      'margin': '0px',
-      'font-family': 'Poiret One'
-    };
-  }
-
-  sectionStyle(name) {
-    var style = {};
-
-    if (this.router.isActive("/", true)) {
-      style['position'] = 'absolute';
-
-      if (name == "top") {
-        style['bottom'] = 0;
-      } else if (name == "bottom") {
-        style['top'] = 0;
-      }
-    } else {
-      style['width'] = '100%';
-      style['height'] = '100%';
-    }
-
-    return style;
-  }
-
   sectionWrapperStyle(name) {
     var style = {
-      'width': "100%"
+      'width': '100%',
+      'display': 'block',
+      'position': 'relative'
     };
 
     if (this.router.isActive("/", true)) {
       style['height'] = "50%";
-      style['position'] = "relative";
+    } else {
+      style['height'] = "5em";
     }
 
     if (name == "top") {
@@ -121,10 +141,12 @@ export class AppComponent {
     return style;
   }
 
-  containerStyle() {
-    return {
-      'height': '100%',
-      'background-color': this.colors.backgroundComplement
+  sectionStyle() {
+    var style = {
+      'width': '100%',
+      'height': '100%'
     };
+
+    return style;
   }
 }
