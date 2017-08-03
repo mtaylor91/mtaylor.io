@@ -17,7 +17,10 @@ export class ContactComponent implements OnInit {
   contactStyle() {
     return {
       'margin': '10px',
-      'padding': '10px'
+      'padding': '10px',
+      'width': '100%',
+      'display': 'flex',
+      'flex-direction': 'column',
     }
   }
 

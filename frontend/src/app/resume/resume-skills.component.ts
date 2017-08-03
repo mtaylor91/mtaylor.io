@@ -27,7 +27,7 @@ export class ResumeSkillsComponent implements OnInit {
 
   skillGroupStyle() {
     return {
-      'min-width': '200px'
+      'min-width': '260px'
     }
   }
 }

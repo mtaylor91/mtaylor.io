@@ -19,7 +19,7 @@ const PROJECTS: ResumeProjectSummary[] = [
   },
   {
     name: "Telecommunications Data-Entry Client",
-    description: "Data entry client for completing responses to phone number porting requests from other carriers",
+    description: "Data entry client for completing responses to phone number porting requests exchanged between carriers",
     features: [
       "Read port requests from an SQL database and prepared them for processing by representatives",
       "Provided a streamlined UI for representatives to process port request orders",
@@ -33,8 +33,8 @@ const PROJECTS: ResumeProjectSummary[] = [
     ]
   },
   {
-    name: "Personal Media Management Solution",
-    description: "Media storage solution, server and player",
+    name: "Home Server",
+    description: "Storage solution, file server and media player",
     features: [
       "Redundant LVM/RAID storage array for media and backups",
       "Media playback with remote control",
@@ -50,7 +50,7 @@ const PROJECTS: ResumeProjectSummary[] = [
   },
   {
     name: "Home Lab/Server/Workstation/Router",
-    description: "Personal computer/server/router",
+    description: "Hypervisor Platform for both Server and Desktop Virtual Machines providing advanced network management and routing features for virtual machines and a small home LAN",
     features: [
       "Linux Hypervisor",
       "Native GPU performance on Desktop VMs",

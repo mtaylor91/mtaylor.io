@@ -38,20 +38,21 @@ export class AppComponent {
     private colors: AppColorsService,
     private router: Router) { }
 
-  navStyle = {'width': "100%"};
-
   titleLinkStyle = {'text-decoration': 'none'};
 
   containerStyle() {
     return {
       'height': '100%',
+      'display': 'flex',
+      'flex-wrap': 'wrap',
+      'flex-direction': 'column',
       'background-color': this.colors.backgroundComplement
     };
   }
 
   titleStyle(name) {
     var style = {
-      'display': 'inline-block',
+      'display': 'flex',
       'position': 'absolute'
     };
 
@@ -77,10 +78,20 @@ export class AppComponent {
 
   loginStyle() {
     return {
-      'display': 'inline-block',
+      'display': 'flex',
       'position': 'absolute',
       'right': 0
     }
+  }
+
+  navStyle() {
+    return {
+      'width': '100%',
+      'display': 'flex',
+      'flex-grow': 0,
+      'flex-shrink': 0,
+      'flex-direction': 'row'
+    };
   }
 
   navlinkStyle(link) {
@@ -94,9 +105,10 @@ export class AppComponent {
     }
 
     return {
-      'display': 'inline-block',
       'margin': '0px',
       'padding': '20px',
+      'flex-grow': 0,
+      'flex-shrink': 0,
       'background-color': color
     };
   }
@@ -122,14 +134,21 @@ export class AppComponent {
   sectionWrapperStyle(name) {
     var style = {
       'width': '100%',
-      'display': 'block',
-      'position': 'relative'
+      'display': 'flex',
+      'position': 'relative',
+      'flex-shrink': 0
     };
 
     if (this.router.isActive("/", true)) {
       style['height'] = "50%";
     } else {
       style['height'] = "5em";
+
+      if (name == "top") {
+        style['flex-grow'] = 0;
+      } else {
+        style['flex-grow'] = 100;
+      }
     }
 
     if (name == "top") {
@@ -141,11 +160,18 @@ export class AppComponent {
     return style;
   }
 
-  sectionStyle() {
+  sectionStyle(name) {
     var style = {
       'width': '100%',
-      'height': '100%'
+      'display': 'flex',
+      'flex-wrap': 'wrap',
     };
+
+    if (name == 'bottom') {
+      style['justify-content'] = 'center'
+    } else if (name == 'top') {
+      style['justify-content'] = 'left'
+    }
 
     return style;
   }

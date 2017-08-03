@@ -1,13 +1,13 @@
 
 <!-- App Container -->
-<div [ngStyle]="containerStyle()">
+<div class="app-container" [ngStyle]="containerStyle()">
 
   <!-- Top Section -->
-  <div [ngStyle]="sectionWrapperStyle('top')">
-    <div [ngStyle]="sectionStyle()">
+  <div class="section-wrapper" [ngStyle]="sectionWrapperStyle('top')">
+    <div class="section" [ngStyle]="sectionStyle('top')">
 
       <!-- Title Logo / Home -->
-      <div [ngStyle]="titleStyle('top')">
+      <div class="app-title" [ngStyle]="titleStyle('top')">
         <a routerLink="/" [ngStyle]="titleLinkStyle">
           <h1 [ngStyle]="titleHeadingStyle()">
             {{heading}}
@@ -16,19 +16,20 @@
       </div>
 
       <!-- Login -->
-      <div [ngStyle]="loginStyle()">
+      <div class="app-login" [ngStyle]="loginStyle()">
         <app-login></app-login>
       </div>
     </div>
   </div>
 
   <!-- Bottom Section -->
-  <div [ngStyle]="sectionWrapperStyle('bottom')">
-    <div [ngStyle]="sectionStyle()">
+  <div class="section-wrapper" [ngStyle]="sectionWrapperStyle('bottom')">
+    <div class="section" [ngStyle]="sectionStyle('bottom')">
 
       <!-- Navigation Bar -->
-      <div [ngStyle]="navStyle">
-        <div *ngFor="let link of links"
+      <div class="app-nav" [ngStyle]="navStyle()">
+        <div class="app-navlink"
+            *ngFor="let link of links"
             routerLinkActive="active"
             [ngStyle]="navlinkStyle(link)">
           <!-- Local links use Angular router -->
