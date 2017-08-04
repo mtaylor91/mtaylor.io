@@ -11,7 +11,6 @@ import { AppBackendService } from './app-backend.service';
 
 import { BlogModel } from './blog/blog.model';
 import { ResumeModel } from './resume/resume.model';
-import { ContactModel } from './contact/contact.model';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,7 @@ import { ContactModel } from './contact/contact.model';
     BrowserModule,
     FormsModule,
     BlogModel,
-    ResumeModel,
-    ContactModel
+    ResumeModel
   ],
   providers: [
     AppColorsService,

@@ -30,7 +30,7 @@ export class AppComponent {
     },
     {
       text: "Contact",
-      target: "/contact"
+      target: "mailto:mike.charles.taylor@gmail.com"
     }
   ];
 
@@ -39,6 +39,10 @@ export class AppComponent {
     private router: Router) { }
 
   titleLinkStyle = {'text-decoration': 'none'};
+
+  external(link):boolean {
+    return link.target.startsWith('http') || link.target.startsWith('mailto:')
+  }
 
   containerStyle() {
     return {

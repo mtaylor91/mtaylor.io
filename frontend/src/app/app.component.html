@@ -33,7 +33,7 @@
             routerLinkActive="active"
             [ngStyle]="navlinkStyle(link)">
           <!-- Local links use Angular router -->
-          <a *ngIf="! link.target.startsWith('http')"
+          <a *ngIf="!external(link)"
               routerLink="{{link.target}}"
               [ngStyle]="{'text-decoration': 'none'}">
             <h3 [ngStyle]="navlinkHeadingStyle(link)">
@@ -41,7 +41,7 @@
             </h3>
           </a>
           <!-- Construct normal links for external targets -->
-          <a *ngIf="link.target.startsWith('http')"
+          <a *ngIf="external(link)"
               href="{{link.target}}"
               [ngStyle]="{'text-decoration': 'none'}">
             <h3 [ngStyle]="navlinkHeadingStyle(link)">
