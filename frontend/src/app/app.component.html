@@ -32,6 +32,7 @@
             *ngFor="let link of links"
             routerLinkActive="active"
             [ngStyle]="navlinkStyle(link)">
+
           <!-- Local links use Angular router -->
           <a *ngIf="!external(link)"
               routerLink="{{link.target}}"
@@ -40,6 +41,7 @@
               {{link.text}}
             </h3>
           </a>
+
           <!-- Construct normal links for external targets -->
           <a *ngIf="external(link)"
               href="{{link.target}}"
@@ -48,12 +50,14 @@
               {{link.text}}
             </h3>
           </a>
+
         </div>
       </div>
 
       <!-- Content -->
-      <router-outlet></router-outlet>
+      <router-outlet>
+      </router-outlet>
+
     </div>
   </div>
-
 </div>
