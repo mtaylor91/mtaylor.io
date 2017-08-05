@@ -13,6 +13,10 @@ export class AppComponent {
 
   links = [
     {
+      text: "Blog",
+      target: "/blog"
+    },
+    {
       text: "Resume",
       target: "/resume"
     },

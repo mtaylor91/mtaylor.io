@@ -11,7 +11,9 @@ config :mtaylor_io, MTaylor.IO.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: []
+  watchers: [
+    node: ~w(node_modules/@angular/cli/bin/ng build --progress=false --watch)
+  ]
 
 
 # Do not include metadata nor timestamps in development logs

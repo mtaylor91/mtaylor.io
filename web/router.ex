@@ -13,4 +13,8 @@ defmodule MTaylor.IO.Router do
     resources "/users", UserController, except: [:new, :edit]
     resources "/blog/posts", PostController, except: [:new, :edit]
   end
+
+  scope "/", MTaylor.IO do
+    get "/*path", IndexController, :index
+  end
 end

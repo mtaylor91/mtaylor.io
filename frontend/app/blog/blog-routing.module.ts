@@ -1,11 +1,11 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BlogPostComponent }    from './blog-post.component';
+import { BlogComponent }    from './blog.component';
 
 const blogRoutes: Routes = [
-  { path: 'blog', redirectTo: 'blog/welcome' },
-  { path: 'blog/:post', component: BlogPostComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'blog/:post', component: BlogComponent },
 ];
 
 @NgModule({

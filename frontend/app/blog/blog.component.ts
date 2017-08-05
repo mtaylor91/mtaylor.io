@@ -12,10 +12,10 @@ import { BlogPost } from './blog-post';
 
 @Component({
   selector: 'blog-post',
-  templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.css']
+  templateUrl: './blog.component.html',
+  styleUrls: ['./blog.component.css']
 })
-export class BlogPostComponent implements OnInit {
+export class BlogComponent implements OnInit {
   post: BlogPost
   posts: BlogPost[]
   content: SafeHtml

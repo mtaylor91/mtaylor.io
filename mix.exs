@@ -4,7 +4,7 @@ defmodule MTaylor.IO.Mixfile do
   def project do
     [app: :mtaylor_io,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.5",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -30,12 +30,12 @@ defmodule MTaylor.IO.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.5"},
+    [{:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
+     {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
+     {:gettext, "~> 0.13.1"},
+     {:cowboy, "~> 1.1"},
      {:cors_plug, "~> 1.4"}]
   end
 
