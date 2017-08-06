@@ -1,33 +1,33 @@
 
 <!-- Blog Content -->
-<div *ngIf="!loading" [ngStyle]="postContainerStyle()">
+<div *ngIf="!loading" class="post-container">
   <!-- Post Heading -->
-  <div [ngStyle]="postContentHeadingStyle()">
-    <h1 [ngStyle]="postTitleStyle()"
+  <div class="post-header">
+    <h1 class="post-title"
         [contentEditable]="editable">
       {{post.name}}
     </h1>
 
     <input *ngIf="editable"
-      [ngStyle]="postLinkInputStyle()"
+      class="post-link-input"
       [(ngModel)]="post.link"/>
 
-    <button [ngStyle]="editableButtonStyle()"
-        (click)="toggleEditable()">
+    <button (click)="toggleEditable()"
+        class="post-editable-button">
       {{editableButtonText()}}
     </button>
   </div>
 
   <div *ngIf="!editable"
-    [ngStyle]="postContentStyle()"
+    class="post-content"
     [innerHTML]="content">
   </div>
 
   <!-- Show Markdown editor if editable -->
   <textarea #contentEditor
     *ngIf="editable"
+    class="post-editor"
     [ngModel]="post.content"
-    [ngStyle]="postContentEditStyle()"
     (keyup)="setPostContent(contentEditor.value)">
   </textarea>
 </div>
@@ -35,21 +35,21 @@
 <!-- Blog Navigation -->
 <div>
   <!-- Navigation Heading -->
-  <h2 [ngStyle]="recentPostsStyle()">Recent Posts</h2>
+  <h2 class="posts-nav-header">Recent Posts</h2>
 
   <!-- Navigation Links -->
-  <ul dir="rtl" [ngStyle]="navigationListStyle()">
+  <ul dir="rtl" class="posts-nav-links"
+      [ngStyle]="navigationListColors()">
     <li *ngFor="let post of posts" routerLinkActive="active">
-      <a routerLink="{{post.link}}"
-          [ngStyle]="navigationPostStyle(post)">
+      <a routerLink="{{post.link}}" class="posts-nav-link"
+          [ngStyle]="navigationPostColors(post)">
         {{post.name}}
       </a>
     </li>
   </ul>
 
   <!-- Create Post Button -->
-  <p [ngStyle]="createPostButtonStyle()"
-      (click)="createPost()">
+  <p class="create-post-button" (click)="createPost()">
     New
   </p>
 </div>

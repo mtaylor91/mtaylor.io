@@ -55,6 +55,15 @@ export class BlogComponent implements OnInit {
     });
   }
 
+  createPost() {
+    this.editable = true;
+    this.setPost(new BlogPost({
+      name: "Untitled Post",
+      link: "/blog/untitled",
+      content: "",
+    }));
+  }
+
   updatePost() {
     if (this.activeLink == "/blog") {
       if (this.posts.length > 0) {
@@ -82,39 +91,12 @@ export class BlogComponent implements OnInit {
   }
 
   setPostContent(text) {
-    console.log(text);
     this.post.content = text;
   }
 
   toggleEditable() {
     this.editable = ! this.editable;
     this.setPost(this.post);
-  }
-
-  postTitleStyle() {
-    return {
-      'display': 'inline-block',
-      'margin': '0px',
-      'padding': '0px',
-      'outline': 'none',
-    }
-  }
-
-  postContainerStyle() {
-    return {
-      'flex': '1 1 auto',
-      'display': 'flex',
-      'margin-left': '20px',
-      'flex-direction': 'column',
-      'justify-content': 'flex-start',
-    }
-  }
-
-  postContentHeadingStyle() {
-    return {
-      'display': 'flex',
-      'justify-content': 'space-between'
-    }
   }
 
   editableButtonText() {
@@ -125,102 +107,20 @@ export class BlogComponent implements OnInit {
     }
   }
 
-  editableButtonStyle() {
+  navigationListColors() {
     return {
-      'border': 'none',
-      'float': 'right',
-      'outline': 'none',
-      'background': 'none',
-    }
-  }
-
-  postContentStyle() {
-    return {
-      'height': '0px',
-      'width': '100%',
-      'flex': '1 1 auto',
-      'display': 'flex',
-      'resize': 'none',
-      'border': 'none',
-      'padding': '0px',
-      'outline': 'none',
-      'font-size': '16px',
-      'overflow-y': 'scroll',
-      'margin-top': '10px',
-      'background': 'none',
-      'font-family': 'Roboto',
-      'box-sizing': 'border-box',
-      'white-space': 'pre-wrap',
-      'flex-direction': 'column',
-    }
-  }
-
-  postContentEditStyle() {
-    return {
-      'flex': '1 1 auto',
-      'display': 'block',
-      'width': '100%',
-      'height': '100%',
-      'resize': 'none',
-      'border': 'none',
-      'font-size': '16px',
-      'font-family': 'Roboto',
-      'box-sizing': 'border-box',
-      'background': 'none',
-      'margin-top': '18px',
-      'padding': '0px',
-      'outline': 'none',
-    }
-  }
-
-  postLinkInputStyle() {
-    return {
-      'border': 'none',
-      'outline': 'none',
-      'background': 'none',
-      'font-family': 'Poiret One',
-      'font-size': '16px',
-    }
-  }
-
-  recentPostsStyle() {
-    return {
-      'text-align': 'right',
-      'margin-right': '1em',
-    }
-  }
-
-  navigationListStyle() {
-    return {
-      'display': 'block',
-      'min-width': '10em',
-      'text-align': 'right',
-      'list-style-position': 'inside',
       'color': this.colors.foregroundComplement,
       'background-color': this.colors.backgroundComplement
     }
   }
 
-  navigationPostStyle(post) {
+  navigationPostColors(post) {
     var color;
 
     if (!this.loading && post.name == this.post.name) {
-      color = this.colors.foregroundComplement;
+      return {'color': this.colors.foregroundComplement};
     } else {
-      color = this.colors.foregroundAccent;
-    }
-
-    return {
-      'color': color,
-      'text-decoration': 'none'
-    }
-  }
-
-  createPostButtonStyle() {
-    return {
-      'padding-right': '1em',
-      'margin-right': '1em',
-      'text-align': 'right',
+      return {'color': this.colors.foregroundAccent};
     }
   }
 }
