@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppColorsService } from './app-colors.service';
 import { AppLoginComponent } from './app-login.component';
 import { AppBackendService } from './app-backend.service';
+import { SocketService } from './socket.service';
 
 import { BlogModel } from './blog/blog.model';
 import { ResumeModel } from './resume/resume.model';
@@ -27,7 +28,8 @@ import { ResumeModel } from './resume/resume.model';
   ],
   providers: [
     AppColorsService,
-    AppBackendService
+    AppBackendService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

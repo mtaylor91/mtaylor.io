@@ -13,6 +13,14 @@ config :mtaylor_io, MTaylor.IO.Endpoint,
   check_origin: false,
   watchers: [
     node: ~w(node_modules/@angular/cli/bin/ng build --progress=false --watch)
+  ],
+  live_reload: [
+    url: "ws://localhost:4000",
+    patterns: [
+      ~r{priv/static/.*$},
+      ~r{web/views/.*(ex)$},
+      ~r{web/templates/.*(eex)$}
+    ]
   ]
 
 
@@ -26,8 +34,12 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :mtaylor_io, MTaylor.IO.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "dev_mtaylor_io",
-  password: "1b3s&YXui28I",
-  database: "dev_mtaylor_io",
-  hostname: "dva.home.mtaylor.io",
+  username: "mtaylor",
+  database: "mtaylor",
   pool_size: 10
+# Postgres on dva
+#  username: "dev_mtaylor_io",
+#  password: "1b3s&YXui28I",
+#  database: "dev_mtaylor_io",
+#  hostname: "dva.home.mtaylor.io",
+#  pool_size: 10

@@ -2,7 +2,7 @@ defmodule MTaylor.IO.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", MTaylor.IO.RoomChannel
+  channel "blog:*", MTaylor.IO.BlogChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

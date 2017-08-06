@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
+import { Converter } from 'showdown';
 
 import { AppColorsService } from '../app-colors.service';
-
+import { BlogPostsService } from './blog-posts.service';
 import { BlogPost } from './blog-post';
 
 @Component({
@@ -20,71 +20,180 @@ export class BlogComponent implements OnInit {
   posts: BlogPost[]
   content: SafeHtml
   loading: boolean
+  editable: boolean
 
-  private selectedPostName: string;
+  private activeLink: string;
+  private converter: Converter;
 
   constructor(
-    private http: HttpClient,
-    private colors: AppColorsService,
     private router: Router,
     private route: ActivatedRoute,
+    private colors: AppColorsService,
+    private service: BlogPostsService,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.loading = true;
-    this.posts = [];
+    this.editable = false;
+    this.posts = this.service.getPosts();
+    this.converter = new Converter();
+    this.converter.setOption('tables', true);
+
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.selectedPostName = params.get('name');
-      this.http.get('http://localhost:4000/api/blog/posts').subscribe(data => {
-        this.posts = data["data"];
-        for (let post of this.posts) {
-          if (this.router.isActive(post.link, false)) {
-            this.post = post;
-            this.content = this.sanitizer
-              .bypassSecurityTrustHtml(this.post.content);
-            this.loading = false;
-          }
-        }
-      });
+      if (params.has('post')) {
+        this.activeLink = "/blog/" + params.get('post');
+      } else {
+        this.activeLink = "/blog"
+      }
+
+      this.updatePost();
     })
+
+    this.service.posts.subscribe(posts => {
+      this.posts = posts;
+      this.updatePost();
+    });
+  }
+
+  updatePost() {
+    if (this.activeLink == "/blog") {
+      if (this.posts.length > 0) {
+        this.setPost(this.posts[0]);
+      }
+    } else {
+      for (let post of this.posts) {
+        if (this.activeLink == post.link) {
+          this.setPost(post);
+        }
+      }
+    }
+  }
+
+  setPost(post) {
+    this.post = post;
+    this.loading = false;
+
+    if (!this.editable) {
+      var html = this.converter.makeHtml(post.content);
+      this.content = this.sanitizer.bypassSecurityTrustHtml(html);
+    } else {
+      this.content = post.content;
+    }
+  }
+
+  setPostContent(text) {
+    console.log(text);
+    this.post.content = text;
+  }
+
+  toggleEditable() {
+    this.editable = ! this.editable;
+    this.setPost(this.post);
   }
 
   postTitleStyle() {
     return {
+      'display': 'inline-block',
       'margin': '0px',
       'padding': '0px'
     }
   }
 
-  postContentStyle() {
+  postContainerStyle() {
     return {
-      'top': 0,
-      'left': 0,
-      'width': '70%',
-      'display': 'block',
-      'position': 'absolute',
+      'flex': '1 1 auto',
+      'display': 'flex',
       'margin-left': '20px',
-      'margin-right': '20px'
+      'flex-direction': 'column',
+      'justify-content': 'flex-start',
     }
   }
 
-  navigationStyle() {
+  postContentHeadingStyle() {
     return {
-      'top': 0,
-      'right': 0,
-      'width': '30%',
+      'display': 'flex',
+      'justify-content': 'space-between'
+    }
+  }
+
+  editableButtonText() {
+    if (this.editable) {
+      return "View";
+    } else {
+      return "Edit";
+    }
+  }
+
+  editableButtonStyle() {
+    return {
+      'border': 'none',
+      'float': 'right',
+      'outline': 'none',
+      'background': 'none',
+    }
+  }
+
+  postContentStyle() {
+    return {
+      'height': '0px',
+      'width': '100%',
+      'flex': '1 1 auto',
+      'display': 'flex',
+      'resize': 'none',
+      'border': 'none',
+      'padding': '0px',
+      'outline': 'none',
+      'font-size': '16px',
+      'overflow-y': 'scroll',
+      'margin-top': '17px',
+      'background': 'none',
+      'font-family': 'Roboto',
+      'box-sizing': 'border-box',
+      'white-space': 'pre-wrap',
+      'flex-direction': 'column',
+    }
+  }
+
+  postContentEditStyle() {
+    return {
+      'flex': '1 1 auto',
       'display': 'block',
-      'position': 'absolute',
+      'width': '100%',
+      'height': '100%',
+      'resize': 'none',
+      'border': 'none',
+      'font-size': '16px',
+      'font-family': 'Roboto',
+      'box-sizing': 'border-box',
+      'background': 'none',
+      'margin-top': '17px',
+      'padding': '0px',
+      'outline': 'none',
+    }
+  }
+
+  recentPostsStyle() {
+    return {
+      'text-align': 'right',
+      'margin-right': '1em',
+    }
+  }
+
+  navigationListStyle() {
+    return {
+      'display': 'block',
+      'min-width': '10em',
+      'text-align': 'right',
+      'list-style-position': 'inside',
       'color': this.colors.foregroundComplement,
       'background-color': this.colors.backgroundComplement
     }
   }
 
   navigationPostStyle(post) {
-    var active = this.router.isActive(post.link, false);
     var color;
 
-    if (active) {
+    if (!this.loading && post.name == this.post.name) {
       color = this.colors.foregroundComplement;
     } else {
       color = this.colors.foregroundAccent;

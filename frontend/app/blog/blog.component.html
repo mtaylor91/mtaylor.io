@@ -1,18 +1,38 @@
 
 <!-- Blog Content -->
-<div *ngIf="!loading" [ngStyle]="postContentStyle()">
-  <h1 [ngStyle]="postTitleStyle()">{{post.name}}</h1>
+<div *ngIf="!loading" [ngStyle]="postContainerStyle()">
+  <!-- Post Heading -->
+  <div [ngStyle]="postContentHeadingStyle()">
+    <h1 [ngStyle]="postTitleStyle()">
+      {{post.name}}
+    </h1>
 
-  <!-- Inject HTML content from post -->
-  <div [innerHTML]="content">
+    <button [ngStyle]="editableButtonStyle()" (click)="toggleEditable()">
+      {{editableButtonText()}}
+    </button>
   </div>
+
+  <div *ngIf="!editable"
+    [ngStyle]="postContentStyle()"
+    [innerHTML]="content">
+  </div>
+
+  <!-- Show Markdown editor if editable -->
+  <textarea #contentEditor
+    *ngIf="editable"
+    [ngModel]="post.content"
+    [ngStyle]="postContentEditStyle()"
+    (keyup)="setPostContent(contentEditor.value)">
+  </textarea>
 </div>
 
 <!-- Blog Navigation -->
-<div [ngStyle]="navigationStyle()">
-  <ul>
+<div>
+  <h2 [ngStyle]="recentPostsStyle()">Recent Posts</h2>
+  <ul dir="rtl" [ngStyle]="navigationListStyle()">
     <li *ngFor="let post of posts" routerLinkActive="active">
-      <a routerLink="{{post.link}}" [ngStyle]="navigationPostStyle(post)">
+      <a routerLink="{{post.link}}"
+          [ngStyle]="navigationPostStyle(post)">
         {{post.name}}
       </a>
     </li>

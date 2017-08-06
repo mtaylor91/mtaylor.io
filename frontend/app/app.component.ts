@@ -41,7 +41,10 @@ export class AppComponent {
   titleLinkStyle = {'text-decoration': 'none'};
 
   external(link):boolean {
-    return link.target.startsWith('http') || link.target.startsWith('mailto:')
+    return (
+      link.target.startsWith('http') ||
+      link.target.startsWith('mailto:')
+    )
   }
 
   containerStyle() {
@@ -168,14 +171,8 @@ export class AppComponent {
     var style = {
       'width': '100%',
       'display': 'flex',
-      'flex-wrap': 'wrap',
+      'flex-direction': 'column'
     };
-
-    if (name == 'bottom') {
-      style['justify-content'] = 'center'
-    } else if (name == 'top') {
-      style['justify-content'] = 'left'
-    }
 
     return style;
   }
