@@ -69,13 +69,14 @@ export class AppLoginComponent {
       'font-size': '0.75em',
       'font-family': 'Poiret One',
       'position': 'relative',
+      'border': 'none',
       'outline': 'none',
       'padding-top': '0.25em',
       'padding-bottom': '0.25em',
       'padding-left': '0.5em',
       'padding-right': '0.5em',
-      'border-top-left-radius': '1em',
-      'border-bottom-left-radius': '1em'
+      'background': 'none',
+      'color': this.colors.foregroundAccent
     }
   }
 
@@ -84,13 +85,14 @@ export class AppLoginComponent {
       'font-size': '0.75em',
       'font-family': 'Poiret One',
       'position': 'relative',
+      'border': 'none',
       'outline': 'none',
       'padding-top': '0.25em',
       'padding-bottom': '0.25em',
       'padding-left': '0.5em',
       'padding-right': '0.5em',
-      'border-top-right-radius': '1em',
-      'border-bottom-right-radius': '1em'
+      'background': 'none',
+      'color': this.colors.foregroundAccent
     }
   }
 }

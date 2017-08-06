@@ -95,7 +95,8 @@ export class BlogComponent implements OnInit {
     return {
       'display': 'inline-block',
       'margin': '0px',
-      'padding': '0px'
+      'padding': '0px',
+      'outline': 'none',
     }
   }
 
@@ -145,7 +146,7 @@ export class BlogComponent implements OnInit {
       'outline': 'none',
       'font-size': '16px',
       'overflow-y': 'scroll',
-      'margin-top': '17px',
+      'margin-top': '10px',
       'background': 'none',
       'font-family': 'Roboto',
       'box-sizing': 'border-box',
@@ -166,9 +167,19 @@ export class BlogComponent implements OnInit {
       'font-family': 'Roboto',
       'box-sizing': 'border-box',
       'background': 'none',
-      'margin-top': '17px',
+      'margin-top': '18px',
       'padding': '0px',
       'outline': 'none',
+    }
+  }
+
+  postLinkInputStyle() {
+    return {
+      'border': 'none',
+      'outline': 'none',
+      'background': 'none',
+      'font-family': 'Poiret One',
+      'font-size': '16px',
     }
   }
 
@@ -202,6 +213,14 @@ export class BlogComponent implements OnInit {
     return {
       'color': color,
       'text-decoration': 'none'
+    }
+  }
+
+  createPostButtonStyle() {
+    return {
+      'padding-right': '1em',
+      'margin-right': '1em',
+      'text-align': 'right',
     }
   }
 }
