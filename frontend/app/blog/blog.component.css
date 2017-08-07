@@ -28,10 +28,15 @@
   display: inline-block;
   margin: 0px;
   padding: 0px;
+  border: none;
   outline: none;
+  background: none;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Roboto;
 }
 
-.post-editable-button {
+.post-controls-button {
   border: none;
   float: right;
   outline: none;

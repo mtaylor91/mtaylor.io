@@ -15,6 +15,6 @@ defmodule MTaylor.IO.Post do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :link, :content])
-    |> validate_required([:name, :link, :content])
+    |> validate_required([:name, :link])
   end
 end

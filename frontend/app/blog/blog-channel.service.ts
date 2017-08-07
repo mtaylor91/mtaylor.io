@@ -14,8 +14,8 @@ export class BlogChannelService {
   constructor(private socket: SocketService) {
     this.channel = this.socket.channel("blog:*", {});
     this.posts = Observable.create(observer => {
-      this.channel.on("update", post => {
-        observer.next(post);
+      this.channel.on("update", data => {
+        observer.next(new BlogPost(data));
       });
     });
     this.channel.join()
@@ -28,5 +28,9 @@ export class BlogChannelService {
       .receive("timeout", () => {
         console.log("Networking issue. Still waiting...")
       })
+  }
+
+  push(post: BlogPost) {
+    this.channel.push("update", post);
   }
 }

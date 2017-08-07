@@ -14,15 +14,23 @@ export class BlogPostsService {
     this._posts = []
     this.posts = Observable.create(observer => {
       this.channel.posts.subscribe(post => {
-        var index = this._posts.findIndex(p => p.name == post.name);
-        if (index < 0) {
-          this._posts.push(post);
-        } else {
-          this._posts[index] = post;
-        }
+        this.updatePostInternal(post);
         observer.next(this._posts);
       })
     })
+  }
+
+  updatePost(post: BlogPost) {
+    this.channel.push(post);
+  }
+
+  updatePostInternal(post: BlogPost) {
+    var index = this._posts.findIndex(p => p.id == post.id);
+    if (index < 0) {
+      this._posts.push(post);
+    } else {
+      this._posts[index] = post;
+    }
   }
 
   getPosts() {

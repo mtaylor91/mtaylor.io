@@ -56,12 +56,13 @@ export class BlogComponent implements OnInit {
   }
 
   createPost() {
-    this.editable = true;
-    this.setPost(new BlogPost({
+    this.service.updatePost(new BlogPost({
+      id: -1,
       name: "Untitled Post",
       link: "/blog/untitled",
       content: "",
     }));
+    this.router.navigate(['/blog', 'untitled']);
   }
 
   updatePost() {
@@ -90,18 +91,29 @@ export class BlogComponent implements OnInit {
     }
   }
 
+  setPostName(text) {
+    console.log(text);
+    this.post.name = text;
+  }
+
   setPostContent(text) {
     this.post.content = text;
   }
 
-  toggleEditable() {
-    this.editable = ! this.editable;
+  edit() {
+    this.editable = true;
     this.setPost(this.post);
+  }
+
+  save() {
+    this.editable = false;
+    this.service.updatePost(this.post);
+    this.router.navigateByUrl(this.post.link);
   }
 
   editableButtonText() {
     if (this.editable) {
-      return "View";
+      return "Save";
     } else {
       return "Edit";
     }

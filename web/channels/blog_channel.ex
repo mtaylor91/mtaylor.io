@@ -9,16 +9,27 @@ defmodule MTaylor.IO.BlogChannel do
     {:ok, socket}
   end
 
-  def handle_in("save", post, socket) do
-    require Logger
-    _ = Logger.info("Would save: \n" <> post.content)
-    {:ok, socket}
+  def handle_in("update", params, socket) do
+    _ =
+      case Repo.get(Post, params["id"]) do
+        nil ->
+          Post.changeset(%Post{}, params)
+        post ->
+          Post.changeset(post, params)
+      end
+      |> Repo.insert_or_update!()
+      |> push_update(socket)
+    {:noreply, socket}
   end
 
   def handle_info(:enumerate, socket) do
-    _ = Enum.map(Repo.all(Post), fn post ->
-      _ = push(socket, "update", Map.delete(post, :__meta__))
+    Enum.map(Repo.all(Post), fn post ->
+      push_update(post, socket)
     end)
     {:noreply, socket}
+  end
+
+  defp push_update(post, socket) do
+    push(socket, "update", Map.delete(post, :__meta__))
   end
 end

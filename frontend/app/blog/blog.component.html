@@ -3,19 +3,30 @@
 <div *ngIf="!loading" class="post-container">
   <!-- Post Heading -->
   <div class="post-header">
-    <h1 class="post-title"
-        [contentEditable]="editable">
+
+    <!-- Post Title -->
+    <h1 *ngIf="!editable"
+        class="post-title post-title-heading">
       {{post.name}}
     </h1>
+    <input *ngIf="editable"
+      class="post-title post-title-input"
+      [(ngModel)]="post.name"/>
 
+    <!-- Link input box (edit only) -->
     <input *ngIf="editable"
       class="post-link-input"
       [(ngModel)]="post.link"/>
 
-    <button (click)="toggleEditable()"
-        class="post-editable-button">
-      {{editableButtonText()}}
+    <!-- Edit Button -->
+    <button *ngIf="!editable" (click)="edit()" class="post-controls-button">
+      Edit
     </button>
+    <!-- Save Button -->
+    <button *ngIf="editable" (click)="save()" class="post-controls-button">
+      Save
+    </button>
+
   </div>
 
   <div *ngIf="!editable"
