@@ -1,50 +1,17 @@
 
 <!-- Blog Content -->
 <div *ngIf="!loading" class="post-container">
-  <!-- Post Heading -->
-  <div class="post-header">
 
-    <!-- Post Title -->
-    <h1 *ngIf="!editable"
-        class="post-title post-title-heading">
-      {{post.name}}
-    </h1>
-    <input *ngIf="editable"
-      class="post-title post-title-input"
-      [(ngModel)]="post.name"/>
+  <blog-post *ngIf="showContent()" [post]="post">
+  </blog-post>
 
-    <!-- Link input box (edit only) -->
-    <input *ngIf="editable"
-      class="post-link-input"
-      [(ngModel)]="post.link"/>
+  <blog-editor *ngIf="showEditor()" [post]="post" [errors]="errors">
+  </blog-editor>
 
-    <!-- Edit Button -->
-    <button *ngIf="!editable" (click)="edit()" class="post-controls-button">
-      Edit
-    </button>
-    <!-- Save Button -->
-    <button *ngIf="editable" (click)="save()" class="post-controls-button">
-      Save
-    </button>
-
-  </div>
-
-  <div *ngIf="!editable"
-    class="post-content"
-    [innerHTML]="content">
-  </div>
-
-  <!-- Show Markdown editor if editable -->
-  <textarea #contentEditor
-    *ngIf="editable"
-    class="post-editor"
-    [ngModel]="post.content"
-    (keyup)="setPostContent(contentEditor.value)">
-  </textarea>
 </div>
 
 <!-- Blog Navigation -->
-<div>
+<div class="posts-nav">
   <!-- Navigation Heading -->
   <h2 class="posts-nav-header">Recent Posts</h2>
 

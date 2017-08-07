@@ -16,5 +16,6 @@ defmodule MTaylor.IO.Post do
     struct
     |> cast(params, [:name, :link, :content])
     |> validate_required([:name, :link])
+    |> unique_constraint(:link)
   end
 end

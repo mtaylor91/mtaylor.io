@@ -1,0 +1,24 @@
+
+<!-- Post Heading -->
+<div *ngIf="loaded()" class="post-header">
+
+  <!-- Post Title -->
+  <h1 class="post-title">
+    {{post.name}}
+  </h1>
+
+  <!-- Edit Button -->
+  <button class="post-controls-button" (click)="edit()">
+    Edit
+  </button>
+
+</div>
+
+<!-- Post Content -->
+<div *ngIf="loaded()" class="post-content" [innerHTML]="content()">
+</div>
+
+<!-- Pre-Loaded Content -->
+<div *ngIf="!loaded()" class="post-loading">
+  <h3>Loading...</h3>
+</div>

@@ -10,5 +10,6 @@ defmodule MTaylor.IO.Repo.Migrations.CreatePost do
       timestamps()
     end
 
+    create unique_index(:posts, [:link])
   end
 end

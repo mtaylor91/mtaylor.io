@@ -30,7 +30,7 @@ export class BlogChannelService {
       })
   }
 
-  push(post: BlogPost) {
-    this.channel.push("update", post);
+  save(post: BlogPost) {
+    return this.channel.push("save", post);
   }
 }

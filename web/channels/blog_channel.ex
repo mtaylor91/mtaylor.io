@@ -9,27 +9,31 @@ defmodule MTaylor.IO.BlogChannel do
     {:ok, socket}
   end
 
-  def handle_in("update", params, socket) do
-    _ =
-      case Repo.get(Post, params["id"]) do
-        nil ->
-          Post.changeset(%Post{}, params)
-        post ->
-          Post.changeset(post, params)
-      end
-      |> Repo.insert_or_update!()
-      |> push_update(socket)
-    {:noreply, socket}
+  def handle_in("save", params, socket) do
+    case params["id"] do
+      -1 ->
+        Post.changeset(%Post{}, params)
+        |> Repo.insert()
+      id ->
+        post = Repo.get!(Post, id)
+        Post.changeset(post, params)
+        |> Repo.update()
+    end
+    |> case do
+      {:ok, post} ->
+        {:reply, {:ok, Map.delete(post, :__meta__)}, socket}
+      {:error, changeset} ->
+        errors = Enum.map(changeset.errors, fn {key, {err, _}} ->
+          "#{key} #{err}"
+        end)
+        {:reply, {:error, %{"errors" => errors}}, socket}
+    end
   end
 
   def handle_info(:enumerate, socket) do
     Enum.map(Repo.all(Post), fn post ->
-      push_update(post, socket)
+      push(socket, "update", Map.delete(post, :__meta__))
     end)
     {:noreply, socket}
-  end
-
-  defp push_update(post, socket) do
-    push(socket, "update", Map.delete(post, :__meta__))
   end
 end

@@ -1,122 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import { Converter } from 'showdown';
 
 import { AppColorsService } from '../app-colors.service';
-import { BlogPostsService } from './blog-posts.service';
+import { BlogService } from './blog.service';
 import { BlogPost } from './blog-post';
 
 @Component({
-  selector: 'blog-post',
+  selector: 'blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.css']
 })
 export class BlogComponent implements OnInit {
   post: BlogPost
   posts: BlogPost[]
-  content: SafeHtml
+  errors: string[]
+  editor: boolean
   loading: boolean
-  editable: boolean
 
-  private activeLink: string;
-  private converter: Converter;
+  private link: string;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private colors: AppColorsService,
-    private service: BlogPostsService,
-    private sanitizer: DomSanitizer) { }
+    private service: BlogService) { }
 
   ngOnInit() {
     this.loading = true;
-    this.editable = false;
-    this.posts = this.service.getPosts();
-    this.converter = new Converter();
-    this.converter.setOption('tables', true);
+    this.editor = false;
+    this.errors = [];
+    this.posts = this.service.posts;
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.has('post')) {
-        this.activeLink = "/blog/" + params.get('post');
-      } else {
-        this.activeLink = "/blog"
-      }
-
-      this.updatePost();
+    this.service.subscribePost(post => {
+      this.post = post;
+      this.loading = false;
     })
 
-    this.service.posts.subscribe(posts => {
+    this.service.subscribePosts(posts => {
       this.posts = posts;
-      this.updatePost();
     });
+
+    this.service.subscribeEditor(editor => {
+      this.editor = editor;
+    })
+
+    this.service.subscribeSaved(saved => {
+      if (saved) {
+        this.router.navigateByUrl(this.service.link);
+        this.errors = [];
+      } else {
+        this.errors = this.service.errors;
+      }
+    })
+
+    // Subscribe to router parameters
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      // Set the active link according to the route parameters
+      if (params.has('post')) {
+        this.link = "/blog/" + params.get('post');
+      } else {
+        this.link = "/blog"
+      }
+      // Activate the active link
+      this.service.link = this.link;
+      this.service.activate();
+    })
   }
 
   createPost() {
-    this.service.updatePost(new BlogPost({
-      id: -1,
-      name: "Untitled Post",
-      link: "/blog/untitled",
-      content: "",
-    }));
+    this.service.new();
     this.router.navigate(['/blog', 'untitled']);
   }
 
-  updatePost() {
-    if (this.activeLink == "/blog") {
-      if (this.posts.length > 0) {
-        this.setPost(this.posts[0]);
-      }
-    } else {
-      for (let post of this.posts) {
-        if (this.activeLink == post.link) {
-          this.setPost(post);
-        }
-      }
-    }
+  showEditor(): boolean {
+    return (!this.loading) && this.editor;
   }
 
-  setPost(post) {
-    this.post = post;
-    this.loading = false;
-
-    if (!this.editable) {
-      var html = this.converter.makeHtml(post.content);
-      this.content = this.sanitizer.bypassSecurityTrustHtml(html);
-    } else {
-      this.content = post.content;
-    }
-  }
-
-  setPostName(text) {
-    console.log(text);
-    this.post.name = text;
-  }
-
-  setPostContent(text) {
-    this.post.content = text;
-  }
-
-  edit() {
-    this.editable = true;
-    this.setPost(this.post);
-  }
-
-  save() {
-    this.editable = false;
-    this.service.updatePost(this.post);
-    this.router.navigateByUrl(this.post.link);
-  }
-
-  editableButtonText() {
-    if (this.editable) {
-      return "Save";
-    } else {
-      return "Edit";
-    }
+  showContent(): boolean {
+    return (!this.loading) && (!this.editor);
   }
 
   navigationListColors() {
@@ -128,7 +92,6 @@ export class BlogComponent implements OnInit {
 
   navigationPostColors(post) {
     var color;
-
     if (!this.loading && post.name == this.post.name) {
       return {'color': this.colors.foregroundComplement};
     } else {

@@ -1,0 +1,27 @@
+
+<!-- Post Heading -->
+<div class="post-header">
+
+  <!-- Post Title Input -->
+  <input class="post-title" [(ngModel)]="post.name"/>
+
+  <!-- Link input box (edit only) -->
+  <input class="post-link-input" [(ngModel)]="post.link"/>
+
+  <!-- Save Button -->
+  <button class="post-controls-button" (click)="save()">
+    Save
+  </button>
+
+</div>
+
+<!-- Errors -->
+<div *ngIf="errors.length > 0" class="post-errors">
+  <div *ngFor="let error of errors" class="post-error">
+    {{error}}
+  </div>
+</div>
+
+<!-- Content Editor -->
+<textarea class="post-editor" [(ngModel)]="post.content">
+</textarea>
