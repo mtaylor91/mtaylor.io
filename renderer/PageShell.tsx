@@ -1,4 +1,4 @@
-import { ComponentChildren } from 'preact'
+import { ComponentChild } from 'preact'
 import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from 'vike/types'
@@ -7,7 +7,7 @@ import { Link } from './Link'
 
 export { PageShell }
 
-function PageShell({ children, pageContext }: { children: ComponentChildren; pageContext: PageContext }) {
+function PageShell({ children, pageContext }: { children: ComponentChild; pageContext: PageContext }) {
   return (
     <PageContextProvider pageContext={pageContext}>
       <Layout>
@@ -26,7 +26,7 @@ function PageShell({ children, pageContext }: { children: ComponentChildren; pag
   )
 }
 
-function Layout({ children }: { children: ComponentChildren }) {
+function Layout({ children }: { children: ComponentChild }) {
   return (
     <div
       style={{
@@ -40,7 +40,7 @@ function Layout({ children }: { children: ComponentChildren }) {
   )
 }
 
-function Sidebar({ children }: { children: ComponentChildren }) {
+function Sidebar({ children }: { children: ComponentChild }) {
   return (
     <div
       style={{
@@ -57,7 +57,7 @@ function Sidebar({ children }: { children: ComponentChildren }) {
   )
 }
 
-function Content({ children }: { children: ComponentChildren }) {
+function Content({ children }: { children: ComponentChild }) {
   return (
     <div
       style={{

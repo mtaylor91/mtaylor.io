@@ -1,3 +1,4 @@
+import { Component } from 'preact'
 export type { PageProps }
 
 // https://vike.dev/pageContext#typescript
@@ -17,5 +18,5 @@ declare global {
   }
 }
 
-type Page = (pageProps: PageProps) => React.ReactElement
+type Page = (pageProps: PageProps) => Component
 type PageProps = Record<string, unknown>
