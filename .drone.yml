@@ -29,9 +29,9 @@ steps:
   - git fetch origin 'refs/tags/*:refs/tags/*'
   - git fetch origin $${DRONE_BRANCH}
   - export tag=$(get-release-tag)
-  - pushd deploy
+  - cd deploy
   - kustomize edit set image images.home.mtaylor.io/mtaylor.io:$${tag}
-  - popd
+  - cd ../
   - git commit -a -m v$${tag}
   - git tag $${tag}
   - git push origin $${tag}
