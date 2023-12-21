@@ -1,4 +1,4 @@
-import React from 'react'
+import { ComponentChildren } from 'preact'
 import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from 'vike/types'
@@ -7,28 +7,26 @@ import { Link } from './Link'
 
 export { PageShell }
 
-function PageShell({ children, pageContext }: { children: React.ReactNode; pageContext: PageContext }) {
+function PageShell({ children, pageContext }: { children: ComponentChildren; pageContext: PageContext }) {
   return (
-    <React.StrictMode>
-      <PageContextProvider pageContext={pageContext}>
-        <Layout>
-          <Sidebar>
-            <Logo />
-            <Link className="navitem" href="/">
-              Home
-            </Link>
-            <Link className="navitem" href="/about">
-              About
-            </Link>
-          </Sidebar>
-          <Content>{children}</Content>
-        </Layout>
-      </PageContextProvider>
-    </React.StrictMode>
+    <PageContextProvider pageContext={pageContext}>
+      <Layout>
+        <Sidebar>
+          <Logo />
+          <Link className="navitem" href="/">
+            Home
+          </Link>
+          <Link className="navitem" href="/about">
+            About
+          </Link>
+        </Sidebar>
+        <Content>{children}</Content>
+      </Layout>
+    </PageContextProvider>
   )
 }
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children }: { children: ComponentChildren }) {
   return (
     <div
       style={{
@@ -42,7 +40,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Sidebar({ children }: { children: React.ReactNode }) {
+function Sidebar({ children }: { children: ComponentChildren }) {
   return (
     <div
       style={{
@@ -59,7 +57,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Content({ children }: { children: React.ReactNode }) {
+function Content({ children }: { children: ComponentChildren }) {
   return (
     <div
       style={{

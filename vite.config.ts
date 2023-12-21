@@ -1,9 +1,9 @@
-import react from '@vitejs/plugin-react'
+import preact from '@preact/preset-vite';
 import vike from 'vike/plugin'
 import { UserConfig } from 'vite'
 
 const config: UserConfig = {
-  plugins: [react(), vike()]
+  plugins: [preact(), vike()]
 }
 
 export default config

@@ -1,7 +1,7 @@
 // https://vike.dev/onRenderClient
 export { onRenderClient }
 
-import { hydrateRoot } from 'react-dom/client'
+import { hydrateRoot } from 'preact/compat/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
 

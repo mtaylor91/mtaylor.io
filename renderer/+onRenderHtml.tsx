@@ -1,7 +1,7 @@
 // https://vike.dev/onRenderHtml
 export { onRenderHtml }
 
-import ReactDOMServer from 'react-dom/server'
+import { renderToString } from 'preact-render-to-string'
 import { PageShell } from './PageShell'
 import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import logoUrl from './logo.svg'
@@ -12,7 +12,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
   // This onRenderHtml() hook only supports SSR, see https://vike.dev/render-modes for how to modify
   // onRenderHtml() to support SPA
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
-  const pageHtml = ReactDOMServer.renderToString(
+  const pageHtml = renderToString(
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
     </PageShell>
