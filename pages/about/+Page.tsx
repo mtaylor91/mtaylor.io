@@ -1,3 +1,4 @@
+import { h } from 'preact'
 export { Page }
 
 function Page() {

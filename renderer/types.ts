@@ -1,4 +1,4 @@
-import { Component } from 'preact'
+import { FunctionComponent } from 'preact'
 export type { PageProps }
 
 // https://vike.dev/pageContext#typescript
@@ -18,5 +18,5 @@ declare global {
   }
 }
 
-type Page = (pageProps: PageProps) => Component
+type Page = FunctionComponent<PageProps>
 type PageProps = Record<string, unknown>
