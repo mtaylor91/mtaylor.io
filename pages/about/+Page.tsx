@@ -1,12 +1,10 @@
-import './code.css'
-
 export { Page }
 
 function Page() {
   return (
     <>
       <h1>About</h1>
-      <p>Example of using Vike.</p>
+      <p>Mike Taylor is a Software Developer based in Calgary, Alberta, Canada</p>
     </>
   )
 }

@@ -1,5 +1,4 @@
 import { ComponentChild } from 'preact'
-import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from 'vike/types'
 import './PageShell.css'
@@ -12,7 +11,6 @@ function PageShell({ children, pageContext }: { children: ComponentChild; pageCo
     <PageContextProvider pageContext={pageContext}>
       <Layout>
         <Sidebar>
-          <Logo />
           <Link className="navitem" href="/">
             Home
           </Link>
@@ -68,21 +66,6 @@ function Content({ children }: { children: ComponentChild }) {
       }}
     >
       {children}
-    </div>
-  )
-}
-
-function Logo() {
-  return (
-    <div
-      style={{
-        marginTop: 20,
-        marginBottom: 10
-      }}
-    >
-      <a href="/">
-        <img src={logo} height={64} width={64} alt="logo" />
-      </a>
     </div>
   )
 }

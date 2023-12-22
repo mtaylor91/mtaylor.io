@@ -4,7 +4,6 @@ export { onRenderHtml }
 import { renderToString } from 'preact-render-to-string'
 import { PageShell } from './PageShell'
 import { escapeInject, dangerouslySkipEscape } from 'vike/server'
-import logoUrl from './logo.svg'
 import type { OnRenderHtmlAsync } from 'vike/types'
 
 const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRenderHtmlAsync> => {
@@ -20,14 +19,13 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
 
   // See https://vike.dev/head
   const { documentProps } = pageContext.exports
-  const title = (documentProps && documentProps.title) || 'Vite SSR app'
-  const desc = (documentProps && documentProps.description) || 'App using Vite + Vike'
+  const title = (documentProps && documentProps.title) || 'Mike Taylor'
+  const desc = (documentProps && documentProps.description) || 'Canadian Software Developer'
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <link rel="icon" href="${logoUrl}" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <title>${title}</title>
