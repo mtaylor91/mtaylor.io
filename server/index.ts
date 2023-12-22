@@ -61,7 +61,7 @@ async function startServer() {
     } else {
       const { body, statusCode, headers, earlyHints } = httpResponse
       if (res.writeEarlyHints) res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
-      res.setHeader('Cache-Control', 'public, max-age=300')
+      res.setHeader('Cache-Control', 'public, max-age=14400')
       headers.forEach(([name, value]) => res.setHeader(name, value))
       res.status(statusCode)
       // For HTTP streams use httpResponse.pipe() instead, see https://vike.dev/stream
