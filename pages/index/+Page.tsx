@@ -3,8 +3,8 @@ export { Page }
 function Page() {
   return (
     <>
-      <h1>Welcome</h1>
-      This site is under construction.
+      <h1>Mike Taylor</h1>
+      Software Developer based in Calgary, Alberta, Canada.
     </>
   )
 }

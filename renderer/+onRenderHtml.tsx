@@ -28,6 +28,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans" />
         <title>${title}</title>
       </head>
       <body>
