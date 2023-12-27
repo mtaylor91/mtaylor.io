@@ -38,7 +38,15 @@ async function startServer() {
     const viteDevMiddleware = (
       await vite.createServer({
         root,
-        server: { middlewareMode: true }
+        server: {
+          middlewareMode: { server: app }
+        },
+        proxy: {
+          '/api/v1/socket': {
+            ws: true,
+            target: 'ws://localhost:8080',
+          }
+        }
       })
     ).middlewares
     app.use(viteDevMiddleware)
