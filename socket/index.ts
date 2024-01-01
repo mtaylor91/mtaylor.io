@@ -63,11 +63,8 @@ export class Client {
   }
 
   public async connect() {
-    console.log('connect');
     this.socket = await this.socket.connect();
-    console.log('connected');
     this.socket.send(encodeClientHello(this.uuid, this.public_key));
-    console.log('sent hello');
     return this;
   }
 }
@@ -85,29 +82,21 @@ export class Socket {
     this.socket = null;
     this.client = client;
     this.url = `${protocol}//${host}${url}`;
-    // this.url = 'ws://localhost:8080/api/v1/socket';
   }
 
   public connect(): Promise<Socket> {
     return new Promise((resolve, reject) => {
       const socket = new WebSocket(this.url);
-      console.log('websocket connecting to', this.url);
       this.socket = socket;
       socket.binaryType = 'arraybuffer';
       socket.onmessage = this.onMessage;
       socket.onclose = this.onClose;
       socket.onerror = reject;
 
-      // set up timer to periodically show status
-      const timer = setInterval(() => {
-        console.log('websocket status', socket.readyState);
-      }, 1000);
-
       socket.onopen = () => {
         console.log('websocket connected');
         socket.onerror = this.onError;
         resolve(this);
-        clearInterval(timer);
       };
     });
   }
