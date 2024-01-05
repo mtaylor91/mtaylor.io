@@ -8,6 +8,31 @@ function encodeClientHello(senderUUID: string, public_key: Uint8Array): Uint8Arr
 }
 
 
+function encodeMessage({ source, destination, eventType, eventPayload }: {
+  source: string,
+  destination: string,
+  eventType: string,
+  eventPayload: Uint8Array,
+}, private_key: Uint8Array): Uint8Array {
+  const encoder = new TextEncoder();
+  const sodium = _sodium;
+  const sourceUUID = parseUUID(source);
+  const destinationUUID = parseUUID(destination);
+  const eventTypeLength = eventType.length;
+  const eventTypeBytes = encoder.encode(eventType);
+  const eventTypeLengthBytes = new Uint8Array([0, 0]);
+  const eventTypeLengthBytesView = new DataView(eventTypeLengthBytes.buffer);
+  eventTypeLengthBytesView.setUint16(0, eventTypeLength);
+  return sodium.crypto_sign(new Uint8Array([
+    ...sourceUUID,
+    ...destinationUUID,
+    ...eventTypeLengthBytes,
+    ...eventTypeBytes,
+    ...eventPayload,
+  ]), private_key);
+}
+
+
 export async function getOrCreateClient(): Promise<Client> {
   const localStoragePrivateKey = localStorage.getItem('private_key')
   const localStoragePublicKey = localStorage.getItem('public_key')
@@ -67,10 +92,24 @@ export class Client {
     this.socket.send(encodeClientHello(this.uuid, this.public_key));
     return this;
   }
+
+  public async send(destination: string, eventType: string, eventPayload: Uint8Array) {
+    if (!this.socket.connected) {
+      await this.connect();
+    }
+
+    this.socket.send(encodeMessage({
+      source: this.uuid,
+      destination,
+      eventType,
+      eventPayload,
+    }, this.private_key));
+  }
 }
 
 
 export class Socket {
+  public connected: boolean;
   private client: Client;
   private socket: null | WebSocket;
   private url: string;
@@ -79,6 +118,7 @@ export class Socket {
     const l = window.location;
     const protocol = l.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = l.host;
+    this.connected = false;
     this.socket = null;
     this.client = client;
     this.url = `${protocol}//${host}${url}`;
@@ -96,6 +136,7 @@ export class Socket {
       socket.onopen = () => {
         console.log('websocket connected');
         socket.onerror = this.onError;
+        this.connected = true;
         resolve(this);
       };
     });
@@ -124,7 +165,8 @@ export class Socket {
   }
 
   public onClose() {
-    console.log('onClose');
+    this.connected = false;
+    this.socket = null;
   }
 
   public onError(error: any) {

@@ -15,7 +15,7 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   const root = document.getElementById('preact-root')
   if (!root) throw new Error('DOM element #preact-root not found')
   const client = await getOrCreateClient()
-  client.connect()
+  client.send('ce01f0a4-27ff-4bfe-bd5a-4140567fba9f', 'onRenderClient', new Uint8Array())
   hydrateRoot(
     root,
     <PageShell pageContext={pageContext}>
