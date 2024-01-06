@@ -17,11 +17,15 @@ function Content({ children }: { children: ComponentChild }) {
   return (
     <div
       style={{
-        backgroundColor: '#333',
-        color: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: 20,
         paddingBottom: 50,
-        minHeight: '100vh'
+        minHeight: '100vh',
+        color: '#ffffff',
+        backgroundColor: '#000000',
       }}
     >
       {children}
