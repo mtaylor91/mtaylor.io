@@ -2,9 +2,16 @@ import { parse as parseUUID, v4 as uuidv4 } from 'uuid';
 import _sodium from 'libsodium-wrappers';
 
 
-function encodeClientHello(senderUUID: string, public_key: Uint8Array): Uint8Array {
-  const sender = parseUUID(senderUUID);
-  return new Uint8Array([...sender, ...public_key]);
+function encodeSessionHello(
+  clientPublicKey: Uint8Array,
+  clientUUID: string,
+  sessionUUID: string,
+): Uint8Array {
+  return new Uint8Array([
+    ...clientPublicKey,
+    ...parseUUID(clientUUID),
+    ...parseUUID(sessionUUID),
+  ]);
 }
 
 
@@ -71,25 +78,34 @@ export async function getOrCreateClient(): Promise<Client> {
 
 
 export class Client {
-  private private_key: Uint8Array;
-  private public_key: Uint8Array;
-  private uuid: string;
+  private clientUUID: string;
+  private sessionUUID: string;
+  private privateKey: Uint8Array;
+  private publicKey: Uint8Array;
   private socket: Socket;
 
   constructor(
     uuid: string,
-    public_key: Uint8Array,
-    private_key: Uint8Array,
+    publicKey: Uint8Array,
+    privateKey: Uint8Array,
   ) {
-    this.private_key = private_key;
-    this.public_key = public_key;
-    this.uuid = uuid;
+    this.clientUUID = uuid;
+    this.sessionUUID = uuidv4();
+    this.privateKey = privateKey;
+    this.publicKey = publicKey;
     this.socket = new Socket(this, '/api/v1/socket');
   }
 
   public async connect() {
+    const hello = encodeSessionHello(
+      this.publicKey,
+      this.clientUUID,
+      this.sessionUUID,
+    );
+
     this.socket = await this.socket.connect();
-    this.socket.send(encodeClientHello(this.uuid, this.public_key));
+    this.socket.send(hello);
+
     return this;
   }
 
@@ -99,11 +115,11 @@ export class Client {
     }
 
     this.socket.send(encodeMessage({
-      source: this.uuid,
+      source: this.clientUUID,
       destination,
       eventType,
       eventPayload,
-    }, this.private_key));
+    }, this.privateKey));
   }
 }
 
