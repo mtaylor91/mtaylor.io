@@ -4,7 +4,7 @@ export { onRenderClient }
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
-
+import { Socket } from '../socket'
 import IAM from 'iam-mtaylor-io-js'
 
 
@@ -17,6 +17,11 @@ const iam = new IAM()
 
 const createSession = async () => {
   await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+  const socket = new Socket(iam)
+  await socket.connect()
+  const session = iam.sessionId
+  const testMessage = { type: "message", message: "test", recipient: { session } }
+  socket.send(JSON.stringify(testMessage))
 }
 
 
