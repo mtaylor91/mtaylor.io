@@ -6,13 +6,16 @@ export function Chat({ socket }: { socket: Socket }) {
   const [message, setMessage] = useState<string>('')
   const [recipient, setRecipient] = useState<string>('')
 
+  const handleMessage = (event: MessageEvent) => {
+    const message: Message = JSON.parse(event.data)
+    setMessages(messages => [...messages, message])
+    setRecipient(message.sender.user)
+  }
+
   useEffect(() => {
-    socket.onUserMessage(socket.user.id, event => {
-      const message: Message = JSON.parse(event.data)
-      setMessages(messages => [...messages, message])
-      setRecipient(message.sender.user)
-    })
-  }, [socket])
+    socket.onSessionMessage(handleMessage)
+    socket.onUserMessage(handleMessage)
+  }, [handleMessage, socket, setMessages, setRecipient])
 
   const sendMessage = () => {
     if (!message) return
