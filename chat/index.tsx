@@ -4,18 +4,24 @@ import { useEffect, useState } from 'preact/hooks'
 export function Chat({ socket }: { socket: Socket }) {
   const [messages, setMessages] = useState<Message[]>([])
   const [message, setMessage] = useState<string>('')
+  const [recipient, setRecipient] = useState<string>('')
 
   useEffect(() => {
     socket.userHandlers.set(socket.user.id, [event => {
       const message: Message = JSON.parse(event.data)
       setMessages(messages => [...messages, message])
+      setRecipient(message.sender.user)
     }])
   }, [socket])
 
   const sendMessage = () => {
     if (!message) return
-    const messageData = { type: "message", message, recipient: { user: socket.user.id } }
-    socket.send(JSON.stringify(messageData))
+    socket.send(JSON.stringify({
+      type: "message",
+      message,
+      recipient: { user: recipient },
+      sender: { user: socket.user.id },
+    }))
     setMessage('')
   }
 
