@@ -7,11 +7,11 @@ export function Chat({ socket }: { socket: Socket }) {
   const [recipient, setRecipient] = useState<string>('')
 
   useEffect(() => {
-    socket.userHandlers.set(socket.user.id, [event => {
+    socket.onUserMessage(socket.user.id, event => {
       const message: Message = JSON.parse(event.data)
       setMessages(messages => [...messages, message])
       setRecipient(message.sender.user)
-    }])
+    })
   }, [socket])
 
   const sendMessage = () => {

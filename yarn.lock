@@ -1897,9 +1897,9 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
 
-"events-mtaylor-io-js@github:mtaylor91/events-mtaylor-io-js":
+"events-mtaylor-io-js@github:mtaylor91/events-mtaylor-io-js#f78dbf9":
   version "0.0.1"
-  resolved "https://codeload.github.com/mtaylor91/events-mtaylor-io-js/tar.gz/c7bc64997d8d7a096d918e06bed5e9f4c30a30d6"
+  resolved "https://codeload.github.com/mtaylor91/events-mtaylor-io-js/tar.gz/f78dbf9cd1ee4559c646cf9d8cdcf605a850b3de"
   dependencies:
     "@types/uuid" "^9.0.8"
     iam-mtaylor-io-js "github:mtaylor91/iam-mtaylor-io-js"

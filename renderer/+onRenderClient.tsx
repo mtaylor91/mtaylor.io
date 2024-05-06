@@ -26,7 +26,7 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
 
   await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
   const socket = new Socket(iam)
-  const user = await socket.connect()
+  await socket.connect()
 
   hydrateRoot(
     root,
