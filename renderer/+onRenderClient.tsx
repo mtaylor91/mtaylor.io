@@ -5,7 +5,7 @@ import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
 import { Chat } from '../chat'
-import { Socket } from '../socket'
+import Socket from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
 
 
