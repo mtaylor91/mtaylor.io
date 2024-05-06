@@ -4,6 +4,7 @@ export { onRenderClient }
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
+import { Chat } from '../chat'
 import { Socket } from '../socket'
 import IAM from 'iam-mtaylor-io-js'
 
@@ -15,16 +16,6 @@ const GUEST_LOGIN_SECRET: string = "R973mcAR3ZZoMZdeqbCkknep46heMJJWYefYA86K_ckh
 const iam = new IAM()
 
 
-const createSession = async () => {
-  await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
-  const socket = new Socket(iam)
-  await socket.connect()
-  const session = iam.sessionId
-  const testMessage = { type: "message", message: "test", recipient: { session } }
-  socket.send(JSON.stringify(testMessage))
-}
-
-
 // This onRenderClient() hook only supports SSR, see https://vike.dev/render-modes for how to modify onRenderClient()
 // to support SPA
 const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRenderClientAsync> => {
@@ -32,11 +23,16 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   if (!Page) throw new Error('Client-side render() hook expects pageContext.Page to be defined')
   const root = document.getElementById('preact-root')
   if (!root) throw new Error('DOM element #preact-root not found')
-  createSession();
+
+  await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+  const socket = new Socket(iam)
+  const user = await socket.connect()
+
   hydrateRoot(
     root,
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
+      <Chat socket={socket} />
     </PageShell>
   )
 }

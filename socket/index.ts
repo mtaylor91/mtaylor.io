@@ -14,25 +14,35 @@ export interface ClientHello {
 
 export class Socket {
   public connected: boolean;
+
+  public userHandlers: Map<string, ((event: MessageEvent) => void)[]>;
+  public groupHandlers: Map<string, ((event: MessageEvent) => void)[]>;
+  public sessionHandlers: ((event: MessageEvent) => void)[];
+
   private socket: null | WebSocket;
   private url: string;
   private iam: IAM;
+  private user: null | User;
 
   constructor(iam: IAM) {
     this.connected = false;
     this.socket = null;
-    this.url = DEFAULT_URL;
+    this.user = null;
     this.iam = iam;
+    this.url = DEFAULT_URL;
+    this.userHandlers = new Map();
+    this.groupHandlers = new Map();
+    this.sessionHandlers = [];
   }
 
   public async connect(): Promise<User> {
-    const user = await this.iam.user.getUser()
+    this.user = await this.iam.user.getUser()
 
     const connected = new Promise((resolve, reject) => {
       const socket = new WebSocket(this.url);
       this.socket = socket;
       socket.binaryType = 'arraybuffer';
-      socket.onmessage = this.onMessage;
+      socket.onmessage = this.onMessage.bind(this);
       socket.onclose = this.onClose;
       socket.onerror = reject;
       socket.onopen = () => {
@@ -42,7 +52,7 @@ export class Socket {
         // Send client hello
         const session = this.iam.sessionId;
         const token = this.iam.sessionToken;
-        const hello: ClientHello = { user: user.id, session, token };
+        const hello: ClientHello = { user: this.user.id, session, token };
         const helloData = JSON.stringify(hello);
         socket.send(helloData);
         resolve(this);
@@ -51,10 +61,11 @@ export class Socket {
 
     await connected;
 
-    return user;
+    return this.user;
   }
 
   public disconnect() {
+    console.log('disconnecting');
     if (this.socket) {
       this.socket.close();
     }
@@ -68,15 +79,22 @@ export class Socket {
     this.socket.send(data);
   }
 
-  public onOpen() {
-    console.log('onOpen');
-  }
-
   public onMessage(event: MessageEvent) {
-    console.log('onMessage', event.data);
+    const message = JSON.parse(event.data);
+    console.log('onMessage', message);
+    const recipient = message.recipient;
+    if (recipient.user) {
+      const handlers = this.userHandlers.get(recipient.user) || [];
+      handlers.forEach(handler => handler(event))
+    }
+    if (recipient.group)
+      this.groupHandlers.get(recipient.group)?.forEach(handler => handler(event));
+    if (recipient.session)
+      this.sessionHandlers.forEach(handler => handler(event));
   }
 
-  public onClose() {
+  public onClose(event: CloseEvent) {
+    console.log('onClose', event);
     this.connected = false;
     this.socket = null;
   }

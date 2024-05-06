@@ -13,7 +13,11 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
   if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
   const pageHtml = renderToString(
     <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
+      <header>
+      </header>
+      <main>
+        <Page {...pageProps} />
+      </main>
     </PageShell>
   )
 
