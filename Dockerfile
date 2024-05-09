@@ -1,4 +1,4 @@
-FROM images.home.mtaylor.io/nodejs:0.0.2
+FROM images.home.mtaylor.io/nodejs:0.0.3
 RUN mkdir -p /usr/src/mtaylor.io
 WORKDIR /usr/src/mtaylor.io
 COPY package.json /usr/src/mtaylor.io/
