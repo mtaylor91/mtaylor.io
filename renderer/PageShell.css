@@ -21,3 +21,13 @@ h1, h2, h3, h4, h5, h6, p {
 .navitem.is-active {
   background-color: #eee;
 }
+
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #ffffff;
+  background-color: #000000;
+}

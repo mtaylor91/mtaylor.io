@@ -15,19 +15,7 @@ function PageShell({ children, pageContext }: { children: ComponentChild; pageCo
 
 function Content({ children }: { children: ComponentChild }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        paddingBottom: 50,
-        minHeight: '100vh',
-        color: '#ffffff',
-        backgroundColor: '#000000',
-      }}
-    >
+    <div class="page-shell">
       {children}
     </div>
   )

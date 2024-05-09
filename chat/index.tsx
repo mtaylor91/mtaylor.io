@@ -1,35 +1,69 @@
+import Events from 'events-mtaylor-io-js'
 import { useEffect, useState } from 'preact/hooks'
 
 
-export function Chat({ socket }: { socket: Socket }) {
-  const [messages, setMessages] = useState<Message[]>([])
+interface UserIdentifier {
+  user: string
+}
+
+
+interface GroupIdentifier {
+  group: string
+}
+
+
+interface SessionIdentifier {
+  session: string
+}
+
+
+type Identifier = UserIdentifier | GroupIdentifier | SessionIdentifier
+
+
+interface Message {
+  message: string
+  sender: Identifier
+  recipient: Identifier
+}
+
+
+interface ChatProps {
+  events: Events
+  group: string
+}
+
+
+export function Chat({ events, group }: ChatProps) {
   const [message, setMessage] = useState<string>('')
-  const [recipient, setRecipient] = useState<string>('')
+  const [messages, setMessages] = useState<Message[]>([])
+  const recipient: Identifier = { group }
+  const userId: string | undefined = events.socket.user?.id
+
+  if (!userId) {
+    return (<p class="error">Not logged in</p>)
+  }
+
+  const user: UserIdentifier = { user: userId }
 
   const handleMessage = (event: MessageEvent) => {
     const message: Message = JSON.parse(event.data)
     setMessages(messages => [...messages, message])
-    setRecipient(message.sender.user)
   }
 
   useEffect(() => {
-    socket.onSessionMessage(handleMessage)
-    socket.onUserMessage(handleMessage)
-  }, [handleMessage, socket, setMessages, setRecipient])
+    events.socket.onSessionMessage(handleMessage)
+    events.socket.onUserMessage(userId, handleMessage)
+  }, [handleMessage, events, setMessages])
 
   const sendMessage = () => {
     if (!message) return
-    socket.send(JSON.stringify({
-      type: "message",
-      message,
-      recipient: { user: recipient },
-      sender: { user: socket.user.id },
-    }))
+    events.socket.send({ type: "message", message, recipient, sender: user })
     setMessage('')
   }
 
-  if (messages.length < 1) {
-    return false
+  const onChangeMessage = (event: Event) => {
+    const target = event.target as HTMLInputElement
+    setMessage(target.value)
   }
 
   return (
@@ -58,11 +92,7 @@ export function Chat({ socket }: { socket: Socket }) {
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        value={message}
-        onChange={e => setMessage(e.target.value)}
-      />
+      <input type="text" value={message} onChange={onChangeMessage} />
       <button onClick={sendMessage}>Send</button>
     </div>
   )

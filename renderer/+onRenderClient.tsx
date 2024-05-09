@@ -5,7 +5,7 @@ import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
 import { Chat } from '../chat'
-import Socket from 'events-mtaylor-io-js'
+import Events from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
 
 
@@ -24,15 +24,30 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   const root = document.getElementById('preact-root')
   if (!root) throw new Error('DOM element #preact-root not found')
 
+  hydrateRoot(
+    root,
+    <PageShell pageContext={pageContext}>
+      <Page {...pageProps} />
+    </PageShell>
+  )
+
   await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
-  const socket = new Socket(iam)
-  await socket.connect()
+  const events = new Events(iam)
+  await events.connect()
+
+  const usersGroup = await iam.groups.getGroup('users')
+  events.socket.join(usersGroup.id)
+  events.socket.send({
+    type: 'message',
+    message: 'Hello, world!',
+    recipient: { group: usersGroup.id }
+  })
 
   hydrateRoot(
     root,
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
-      <Chat socket={socket} />
+      <Chat events={events} group={usersGroup.id} />
     </PageShell>
   )
 }
