@@ -17,7 +17,11 @@ interface SessionIdentifier {
 }
 
 
-type Identifier = UserIdentifier | GroupIdentifier | SessionIdentifier
+interface Identifier {
+  user?: string
+  group?: string
+  session?: string
+}
 
 
 interface Message {
@@ -34,30 +38,32 @@ interface ChatProps {
 
 
 export function Chat({ events, group }: ChatProps) {
-  const [message, setMessage] = useState<string>('')
-  const [messages, setMessages] = useState<Message[]>([])
-  const recipient: Identifier = { group }
   const userId: string | undefined = events.socket.user?.id
-
   if (!userId) {
     return (<p class="error">Not logged in</p>)
   }
 
-  const user: UserIdentifier = { user: userId }
+  const [message, setMessage] = useState<string>('')
+  const [messages, setMessages] = useState<Message[]>([])
 
-  const handleMessage = (event: MessageEvent) => {
-    const message: Message = JSON.parse(event.data)
-    setMessages(messages => [...messages, message])
-  }
+  const user: UserIdentifier = { user: userId }
+  const sender: Identifier = user
+  const recipient: Identifier = { group }
 
   useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const message: Message = JSON.parse(event.data)
+      setMessages(messages => [...messages, message])
+    }
+
     events.socket.onSessionMessage(handleMessage)
     events.socket.onUserMessage(userId, handleMessage)
-  }, [handleMessage, events, setMessages])
+    events.socket.onGroupMessage(group, handleMessage)
+  }, [events])
 
   const sendMessage = () => {
     if (!message) return
-    events.socket.send({ type: "message", message, recipient, sender: user })
+    events.socket.send({ type: "message", message, recipient, sender })
     setMessage('')
   }
 

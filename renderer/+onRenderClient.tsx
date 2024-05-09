@@ -37,11 +37,6 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
 
   const usersGroup = await iam.groups.getGroup('users')
   events.socket.join(usersGroup.id)
-  events.socket.send({
-    type: 'message',
-    message: 'Hello, world!',
-    recipient: { group: usersGroup.id }
-  })
 
   hydrateRoot(
     root,
