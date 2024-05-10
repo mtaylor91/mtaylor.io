@@ -9,6 +9,11 @@ function Page() {
         <h1 class="name">Mike Taylor</h1>
         <p class="title">Canadian Software Developer</p>
         <div class="social">
+          <a href="mailto:contact@mtaylor.io">
+            <i class="fa-solid fa-envelope fa-2x">
+              Email
+            </i>
+          </a>
           <a href="https://github.com/mtaylor91">
             <i class="fa-brands fa-github fa-2x">
               GitHub
