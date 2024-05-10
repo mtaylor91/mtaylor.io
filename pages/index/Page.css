@@ -1,4 +1,20 @@
 
+.home {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.splash {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+}
+
 .name, .title {
   margin: 0.25em;
 }
@@ -8,6 +24,8 @@
 }
 
 .posts {
+  flex-grow: 1;
+  min-width: 400px;
   margin-top: 1.2em;
   text-align: center;
 }
