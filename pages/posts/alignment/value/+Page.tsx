@@ -18,9 +18,9 @@ function Page() {
       </p>
       <p>
         We'll begin by examining the nature of decision-making.  At the core of the
-        decision-making process is the choice.  A choice is a selection between two or
-        more options, each of which results in a different outcome.  As we make choices,
-        we are guided by our values, which shape our preferences and priorities.
+        decision-making process is choice.  A choice is a selection between two or more
+        options, each of which results in a different outcome.  As we make choices, we
+        are guided by our values, which shape our preferences and priorities.
       </p>
       <p>
         We inhabit a shared reality.  Our choices affect others just as the choices of
@@ -38,8 +38,9 @@ function Page() {
       <p>
         However, these mechanisms are not perfect.  They are subject to manipulation,
         corruption, and decay.  Often, they fail to adequately address the challenges
-        of resource allocation, decision-making, and value alignment.  As a result, we
-        are left with a world that is rife with conflict, inequality, and injustice.
+        of decision-making and value alignment in a complex and dynamic world.  As a
+        result, we are left with a world that is rife with conflict, inequality,
+        and injustice.
       </p>
       <p>
         At the heart of the challenge of alignment is the question of what is valuable.

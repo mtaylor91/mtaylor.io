@@ -32,7 +32,7 @@ function Page() {
       <p>
         Artificial Intelligence is the capacity of machines to simulate aspects of human
         agency. It is the power of computers to process information, to learn from data,
-        to make decisions, to take actions.
+        to make decisions, and to take actions.
       </p>
       <p>
         The challenge of alignment is the challenge of ensuring that the goals and values
