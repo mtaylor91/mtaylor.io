@@ -1,5 +1,14 @@
 /* This CSS is common to all pages */
 
+html, body, #preact-root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  color: #ffffff;
+  background-color: #000000;
+}
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -26,6 +35,4 @@ h1, h2, h3, h4, h5, h6, p {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  color: #ffffff;
-  background-color: #000000;
 }
