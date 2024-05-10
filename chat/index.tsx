@@ -1,5 +1,6 @@
 import Events from 'events-mtaylor-io-js'
 import { useEffect, useState } from 'preact/hooks'
+import './Chat.css'
 
 
 interface UserIdentifier {
@@ -33,22 +34,22 @@ interface Message {
 
 interface ChatProps {
   events: Events
-  group: string
+  message: Message
 }
 
 
-export function Chat({ events, group }: ChatProps) {
+export function Chat({ events, message }: ChatProps) {
   const userId: string | undefined = events.socket.user?.id
   if (!userId) {
     return (<p class="error">Not logged in</p>)
   }
 
-  const [message, setMessage] = useState<string>('')
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([message])
+  const [messageContents, setMessageContents] = useState<string>('')
 
   const user: UserIdentifier = { user: userId }
   const sender: Identifier = user
-  const recipient: Identifier = { group }
+  const recipient: Identifier = message.sender
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -56,50 +57,40 @@ export function Chat({ events, group }: ChatProps) {
       setMessages(messages => [...messages, message])
     }
 
-    events.socket.onSessionMessage(handleMessage)
-    events.socket.onUserMessage(userId, handleMessage)
-    events.socket.onGroupMessage(group, handleMessage)
+    if (message.recipient.user) {
+      events.socket.onUserMessage(message.recipient.user, handleMessage)
+    } else if (message.recipient.group) {
+      events.socket.onGroupMessage(message.recipient.group, handleMessage)
+    } else if (message.recipient.session) {
+      events.socket.onSessionMessage(handleMessage)
+    }
   }, [events])
 
-  const sendMessage = () => {
+  const sendMessage = (event: Event) => {
+    event.preventDefault()
     if (!message) return
     events.socket.send({ type: "message", message, recipient, sender })
-    setMessage('')
+    setMessageContents('')
   }
 
-  const onChangeMessage = (event: Event) => {
+  const onChangeMessageContents = (event: Event) => {
     const target = event.target as HTMLInputElement
-    setMessage(target.value)
+    setMessageContents(target.value)
   }
 
   return (
-    <div class="chat" style={{
-      position: 'fixed',
-      bottom: 0,
-      right: 0,
-      margin: 10,
-      padding: 10,
-      flexBasis: '1px',
-      alignSelf: 'flex-end',
-    }}>
-      <ul
-        style={{
-          margin: 0,
-          padding: 0,
-          listStyle: 'none',
-          overflowY: 'auto',
-        }}
-      >
-        {messages.map((message, i) => (
-          <li key={i} style={{
-            padding: 10,
-          }}>
-            {message.message}
+    <div class="chat">
+      <ul>
+        {messages.map((m, i) => (
+          <li key={i}>
+            {m.message}
           </li>
         ))}
       </ul>
-      <input type="text" value={message} onChange={onChangeMessage} />
-      <button onClick={sendMessage}>Send</button>
+      <form onSubmit={sendMessage}>
+        <input type="text" value={messageContents} onChange={onChangeMessageContents} />
+        <button type="submit">Send</button>
+      </form>
     </div>
   )
 }

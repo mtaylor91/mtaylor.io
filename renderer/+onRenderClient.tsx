@@ -4,7 +4,6 @@ export { onRenderClient }
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { OnRenderClientAsync } from 'vike/types'
-import { Chat } from '../chat'
 import Events from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
 
@@ -32,17 +31,23 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   )
 
   await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
-  const events = new Events(iam)
+  const events = new Events(iam, "localhost:8080", false)
   await events.connect()
 
   const usersGroup = await iam.groups.getGroup('users')
   events.socket.join(usersGroup.id)
+  events.socket.send({
+    type: 'message',
+    event: 'join',
+    session: iam.sessionId,
+    sender: { user: events.socket.user?.id },
+    recipient: { group: usersGroup.id }
+  })
 
   hydrateRoot(
     root,
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
-      <Chat events={events} group={usersGroup.id} />
     </PageShell>
   )
 }

@@ -4,8 +4,14 @@ import type { PageContext } from 'vike/types'
 import './PageShell.css'
 
 export { PageShell }
+export type { PageShellProps }
 
-function PageShell({ children, pageContext }: { children: ComponentChild; pageContext: PageContext }) {
+interface PageShellProps {
+  children: ComponentChild
+  pageContext: PageContext
+}
+
+function PageShell({ children, pageContext }: PageShellProps) {
   return (
     <PageContextProvider pageContext={pageContext}>
       <Content>{children}</Content>

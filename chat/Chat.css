@@ -1,0 +1,47 @@
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  min-width: 30em;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+  padding: 10px;
+  flex-basis: 1px;
+  align-self: flex-end;
+}
+
+.chat ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow-y: auto;
+}
+
+.chat ul li {
+  padding: 10px;
+  text-align: right;
+}
+
+.chat form {
+  display: flex;
+  width: 100%;
+}
+
+.chat form input {
+  flex: 1;
+  color: inherit;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+}
+
+.chat form button {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
