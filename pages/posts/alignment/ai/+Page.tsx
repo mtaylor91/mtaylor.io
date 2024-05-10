@@ -1,6 +1,6 @@
-export { Page }
-
 import './Page.css'
+
+export { Page }
 
 
 function Page() {

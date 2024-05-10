@@ -14,6 +14,20 @@ function Page() {
           </i>
         </a>
       </div>
+      <ul class="posts">
+        <li>
+          <a href="/posts/alignment/ai">
+            Aligning AI, Aligning Life:
+            Navigating the Complexity of Intelligence, Goals, and Values
+          </a>
+        </li>
+        <li>
+          <a href="/posts/alignment/economic">
+            Aligning Economics with Life:
+            Rethinking Value, Decision-Making, and Resource Allocation
+          </a>
+        </li>
+      </ul>
     </>
   )
 }
