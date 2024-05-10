@@ -57,6 +57,21 @@ function Page() {
                 Is AI Alive? Exploring the Nature of Life, Intelligence, and Emergence
               </a>
             </li>
+            <li>
+              <a href="/posts/intelligence/goals">
+                Intelligence 2: Exploring the Landscape of AI Goals and Self-Prediction
+              </a>
+            </li>
+            <li>
+              <a href="/posts/intelligence/planning">
+                Intelligence 3: Planning and Acting in a World Full of Agents
+              </a>
+            </li>
+            <li>
+              <a href="/posts/intelligence/survival">
+                Intelligence 4: The Key Is Survival
+              </a>
+            </li>
           </ul>
         </div>
       </div>
