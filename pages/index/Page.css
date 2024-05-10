@@ -12,6 +12,11 @@ ul.posts {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   list-style-type: none;
+}
+
+ul.posts li {
+  margin: 0.5em;
+  padding: 1em;
+  border: 1px solid #ccc;
 }

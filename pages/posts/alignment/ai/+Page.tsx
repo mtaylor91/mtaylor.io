@@ -8,6 +8,7 @@ function Page() {
     <div class="post">
       <h2>
         Aligning AI, Aligning Life:
+        <br />
         Navigating the Complexity of Intelligence, Goals, and Values
       </h2>
       <p>

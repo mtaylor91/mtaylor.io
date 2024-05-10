@@ -1,0 +1,21 @@
+
+.post {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1em;
+}
+
+.post p {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    margin: 1em 0;
+}
+
+.post ol {
+    font-size: 1.2em;
+    list-style-type: decimal;
+}
+
+.post ol li {
+    margin: 0.5em 0;
+}

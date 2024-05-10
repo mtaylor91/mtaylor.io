@@ -18,13 +18,22 @@ function Page() {
         <li>
           <a href="/posts/alignment/ai">
             Aligning AI, Aligning Life:
+            <br />
             Navigating the Complexity of Intelligence, Goals, and Values
           </a>
         </li>
         <li>
           <a href="/posts/alignment/economic">
             Aligning Economics with Life:
+            <br />
             Rethinking Value, Decision-Making, and Resource Allocation
+          </a>
+        </li>
+        <li>
+          <a href="/posts/alignment/you">
+            Aligning AI with YOU:
+            <br />
+            Unlocking the Power of Personalized Intelligence
           </a>
         </li>
       </ul>
