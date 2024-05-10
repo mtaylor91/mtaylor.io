@@ -21,8 +21,10 @@ function PageShell({ children, pageContext }: PageShellProps) {
 
 function Content({ children }: { children: ComponentChild }) {
   return (
-    <div class="page-shell">
-      {children}
-    </div>
+    <>
+      <div class="page-shell">
+        {children}
+      </div>
+    </>
   )
 }

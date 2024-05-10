@@ -3,6 +3,7 @@ export { onRenderClient }
 
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
+import { EventsProvider } from './Events'
 import type { OnRenderClientAsync } from 'vike/types'
 import Events from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
@@ -13,6 +14,13 @@ const GUEST_LOGIN_SECRET: string = "R973mcAR3ZZoMZdeqbCkknep46heMJJWYefYA86K_ckh
 
 
 const iam = new IAM()
+const events = new Events(iam)
+
+
+const connectClient = async () => {
+  await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+  await events.connect()
+}
 
 
 // This onRenderClient() hook only supports SSR, see https://vike.dev/render-modes for how to modify onRenderClient()
@@ -23,31 +31,13 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   const root = document.getElementById('preact-root')
   if (!root) throw new Error('DOM element #preact-root not found')
 
+  connectClient()
   hydrateRoot(
     root,
-    <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
-    </PageShell>
-  )
-
-  await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
-  const events = new Events(iam, "localhost:8080", false)
-  await events.connect()
-
-  const usersGroup = await iam.groups.getGroup('users')
-  events.socket.join(usersGroup.id)
-  events.socket.send({
-    type: 'message',
-    event: 'join',
-    session: iam.sessionId,
-    sender: { user: events.socket.user?.id },
-    recipient: { group: usersGroup.id }
-  })
-
-  hydrateRoot(
-    root,
-    <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
-    </PageShell>
+    <EventsProvider events={events}>
+      <PageShell pageContext={pageContext}>
+        <Page {...pageProps} />
+      </PageShell>
+    </EventsProvider>
   )
 }
