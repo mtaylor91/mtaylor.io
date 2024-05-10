@@ -7,7 +7,7 @@ function Page() {
   return (
     <div class="post">
       <h2>
-        Aligning AI, Aligning Life:
+        Aligning AI with Life:
         <br />
         Navigating the Complexity of Intelligence, Goals, and Values
       </h2>

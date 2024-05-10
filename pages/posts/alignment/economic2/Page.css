@@ -11,11 +11,7 @@
     margin: 1em 0;
 }
 
-.post ol {
-    font-size: 1.2em;
-    list-style-type: decimal;
-}
-
-.post ol li {
-    margin: 0.5em 0;
+.post .quote {
+    font-style: italic;
+    margin: 1em 0;
 }

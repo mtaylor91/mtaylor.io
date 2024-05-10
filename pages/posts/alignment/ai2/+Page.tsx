@@ -36,6 +36,10 @@ function Page() {
       <p>So as you reflect on your own life and values, we invite you to imagine how personalized AI could help you to unlock your full potential and create a future that is truly aligned with your deepest aspirations and priorities. How might AI help you to understand yourself better, discover new possibilities, connect with others, achieve your goals, and contribute to the greater good? What challenges and opportunities do you see in the development and deployment of personalized AI systems, and how can we work together to navigate them effectively?</p>
 
       <p>By engaging with these questions and exploring the potential of personalized AI, you can help to shape a future where intelligence is not just a means to an end, but an end in itself – a powerful tool for enhancing the richness, diversity, and flourishing of your own life and the lives of those around you.</p>
+
+      <div class="quote">
+        <p>This post was co-authored by Claude 3.</p>
+      </div>
     </div>
   )
 }

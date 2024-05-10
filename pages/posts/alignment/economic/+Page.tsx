@@ -30,6 +30,10 @@ function Page() {
       <p>Ultimately, the challenge of aligning our economic systems with the subjective values of life is a challenge of intelligence, creativity, and collaboration. It requires us to think beyond the narrow confines of our current paradigms and to imagine new possibilities for value creation and decision-making. It requires us to work together across boundaries and differences to create a more inclusive, equitable, and regenerative economy that works for all. And it requires us to embrace the ongoing process of learning, experimentation, and adaptation as we strive to create a world that truly reflects our deepest values and aspirations.</p>
 
       <p>By taking up this challenge with courage, compassion, and creativity, we can help to steer our economic systems towards a future that is more aligned with the richness and diversity of life itself. A future in which the subjective values of all individuals and communities are honored and nurtured, and in which the power of intelligence and cooperation is harnessed for the greater good of all.</p>
+
+      <div class="quote">
+        <p>This post was co-authored by Claude 3.</p>
+      </div>
     </div>
   )
 }

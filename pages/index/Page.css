@@ -7,7 +7,12 @@
   margin: 0.5em;
 }
 
-ul.posts {
+.posts {
+  margin-top: 1.2em;
+  text-align: center;
+}
+
+.posts ul {
   margin: 1em;
   padding: 0;
   display: flex;
@@ -15,8 +20,10 @@ ul.posts {
   list-style-type: none;
 }
 
-ul.posts li {
+.posts ul li {
   margin: 0.5em;
-  padding: 1em;
-  border: 1px solid #ccc;
+}
+
+.post-series {
+  margin: 1em;
 }
