@@ -1,6 +1,6 @@
 // https://vike.dev/onRenderClient
 export { onRenderClient }
-
+import sodium from 'libsodium-wrappers-sumo'
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import { EventsProvider } from './Events'
@@ -18,7 +18,27 @@ const events = new Events(iam)
 
 
 const connectClient = async () => {
-  await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+  const sessionId = window.localStorage.getItem('sessionId')
+  const sessionToken = window.localStorage.getItem('sessionToken')
+
+  await sodium.ready
+
+  if (sessionId && sessionToken) {
+    try {
+      await iam.refresh(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET, sessionId, sessionToken)
+      console.log('Session refreshed:', iam.sessionId)
+    } catch (error) {
+      console.log('Failed to refresh session:', error)
+      await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+    }
+  } else {
+    await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+    console.log('Session created:', iam.sessionId)
+  }
+
+  window.localStorage.setItem('sessionId', iam.sessionId)
+  window.localStorage.setItem('sessionToken', iam.sessionToken)
+
   await events.connect()
 }
 
@@ -32,6 +52,7 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   if (!root) throw new Error('DOM element #preact-root not found')
 
   connectClient()
+
   hydrateRoot(
     root,
     <EventsProvider events={events}>

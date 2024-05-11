@@ -26,6 +26,11 @@ function Page() {
         <div class="post-series">
           <ul>
             <li>
+              <a href="/posts/alignment/tapestry">
+                The Tapestry of Life
+              </a>
+            </li>
+            <li>
               <a href="/posts/alignment/goals">
                 Goals and Values
               </a>
