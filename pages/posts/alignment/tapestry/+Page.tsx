@@ -9,8 +9,8 @@ function Page() {
         The Tapestry of Life: Weaving Our Stories, Shaping Our Future
       </h2>
       <p>
-        In the grand tapestry of life, each of us is a unique thread, contributing to the
-        overall design with our goals, morals, values, and emotions. Our choices, whether
+        In the grand tapestry of life, each of us is a unique thread, our individual
+        stories interwoven to create a rich and vibrant narrative. Our choices, whether
         made independently or influenced by others, determine the path we follow and the
         impact we have on the world around us.
       </p>

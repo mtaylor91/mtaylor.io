@@ -1,0 +1,6 @@
+
+.error-message {
+  margin: auto;
+  flex-grow: 1;
+  text-align: center;
+}
