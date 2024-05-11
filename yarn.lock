@@ -2255,9 +2255,18 @@ http-errors@2.0.0:
     statuses "2.0.1"
     toidentifier "1.0.1"
 
-"iam-mtaylor-io-js@github:mtaylor91/iam-mtaylor-io-js", "iam-mtaylor-io-js@github:mtaylor91/iam-mtaylor-io-js#af1c84e":
+"iam-mtaylor-io-js@github:mtaylor91/iam-mtaylor-io-js":
   version "0.0.1"
   resolved "https://codeload.github.com/mtaylor91/iam-mtaylor-io-js/tar.gz/af1c84e7a7c6c4528facbda05b7ce0e265f925fe"
+  dependencies:
+    axios "^1.6.8"
+    libsodium-wrappers-sumo "^0.7.13"
+    ts-node "^10.9.2"
+    uuid "^9.0.1"
+
+"iam-mtaylor-io-js@github:mtaylor91/iam-mtaylor-io-js#fe99411":
+  version "0.0.1"
+  resolved "https://codeload.github.com/mtaylor91/iam-mtaylor-io-js/tar.gz/fe9941115273786749a63f7c765f1589c9e0e03b"
   dependencies:
     axios "^1.6.8"
     libsodium-wrappers-sumo "^0.7.13"

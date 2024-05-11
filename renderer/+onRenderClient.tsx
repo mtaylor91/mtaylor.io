@@ -30,6 +30,7 @@ const connectClient = async () => {
     } catch (error) {
       console.log('Failed to refresh session:', error)
       await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
+      console.log('Session created:', iam.sessionId)
     }
   } else {
     await iam.login(GUEST_LOGIN_ID, GUEST_LOGIN_SECRET)
