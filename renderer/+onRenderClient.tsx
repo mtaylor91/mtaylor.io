@@ -4,6 +4,7 @@ import sodium from 'libsodium-wrappers-sumo'
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 import { EventsProvider } from './Events'
+import { IAMProvider } from './IAM'
 import type { OnRenderClientAsync } from 'vike/types'
 import Events from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
@@ -17,7 +18,7 @@ const iam = new IAM()
 const events = new Events(iam)
 
 
-const connectClient = async () => {
+const initSession = async () => {
   const sessionId = window.localStorage.getItem('sessionId')
   const sessionToken = window.localStorage.getItem('sessionToken')
 
@@ -37,8 +38,10 @@ const connectClient = async () => {
     console.log('Session created:', iam.sessionId)
   }
 
-  window.localStorage.setItem('sessionId', iam.sessionId)
-  window.localStorage.setItem('sessionToken', iam.sessionToken)
+  if (iam.sessionId && iam.sessionToken) {
+    window.localStorage.setItem('sessionId', iam.sessionId)
+    window.localStorage.setItem('sessionToken', iam.sessionToken)
+  }
 
   await events.connect()
 }
@@ -52,14 +55,15 @@ const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnType<OnRe
   const root = document.getElementById('preact-root')
   if (!root) throw new Error('DOM element #preact-root not found')
 
-  connectClient()
-
+  initSession()
   hydrateRoot(
     root,
     <EventsProvider events={events}>
-      <PageShell pageContext={pageContext}>
-        <Page {...pageProps} />
-      </PageShell>
+      <IAMProvider iam={iam}>
+        <PageShell pageContext={pageContext}>
+          <Page {...pageProps} />
+        </PageShell>
+      </IAMProvider>
     </EventsProvider>
   )
 }
