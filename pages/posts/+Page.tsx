@@ -2,35 +2,24 @@ export { Page }
 
 import './Page.css'
 
+
 function Page() {
   return (
-    <div class="home">
-      <div class="splash">
-        <h1 class="name">Mike Taylor</h1>
-        <p class="title">Canadian Software Developer</p>
-        <div class="social">
-          <a href="mailto:contact@mtaylor.io">
-            <i class="fa-solid fa-envelope fa-2x">
-              Email
-            </i>
-          </a>
-          <a href="https://github.com/mtaylor91">
-            <i class="fa-brands fa-github fa-2x">
-              GitHub
-            </i>
-          </a>
-        </div>
-      </div>
-      <div class="posts">
-        <h2>
-          <a href="/posts">Recent Posts</a>
-        </h2>
+    <div class="posts">
+      <h2>Posts</h2>
+      <div class="post-series">
+        <h3>Meta-Crisis</h3>
         <ul>
           <li>
             <a href="/posts/metacrisis/science">
               Science and the Meta-Crisis
             </a>
           </li>
+        </ul>
+      </div>
+      <div class="post-series">
+        <h3>Alignment</h3>
+        <ul>
           <li>
             <a href="/posts/alignment/tapestry">
               The Tapestry of Life
@@ -54,11 +43,6 @@ function Page() {
           <li>
             <a href="/posts/alignment/humanity">
               Aligning Humanity
-            </a>
-          </li>
-          <li>
-            <a href="/posts/metacrisis/science">
-              Science and the Meta-Crisis
             </a>
           </li>
         </ul>

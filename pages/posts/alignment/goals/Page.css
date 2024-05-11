@@ -1,8 +1,9 @@
 
 .post {
   margin: auto;
-  max-width: 800px;
   padding: 1em;
+  max-width: 800px;
+  text-align: justify;
 }
 
 .post p {

@@ -1,0 +1,14 @@
+
+.posts {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.posts ul {
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+}
