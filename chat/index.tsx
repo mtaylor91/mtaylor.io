@@ -3,21 +3,6 @@ import { useEffect, useState } from 'preact/hooks'
 import './Chat.css'
 
 
-interface UserIdentifier {
-  user: string
-}
-
-
-interface GroupIdentifier {
-  group: string
-}
-
-
-interface SessionIdentifier {
-  session: string
-}
-
-
 interface Identifier {
   user?: string
   group?: string
@@ -47,8 +32,7 @@ export function Chat({ events, message }: ChatProps) {
   const [messages, setMessages] = useState<Message[]>([message])
   const [messageContents, setMessageContents] = useState<string>('')
 
-  const user: UserIdentifier = { user: userId }
-  const sender: Identifier = user
+  const sender: Identifier = { user: userId }
   const recipient: Identifier = message.sender
 
   useEffect(() => {
@@ -57,13 +41,7 @@ export function Chat({ events, message }: ChatProps) {
       setMessages(messages => [...messages, message])
     }
 
-    if (message.recipient.user) {
-      events.socket.onUserMessage(message.recipient.user, handleMessage)
-    } else if (message.recipient.group) {
-      events.socket.onGroupMessage(message.recipient.group, handleMessage)
-    } else if (message.recipient.session) {
-      events.socket.onSessionMessage(handleMessage)
-    }
+    events.socket.onMessage(handleMessage)
   }, [events])
 
   const sendMessage = (event: Event) => {

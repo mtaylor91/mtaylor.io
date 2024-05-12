@@ -10,6 +10,7 @@ import Events from 'events-mtaylor-io-js'
 import IAM from 'iam-mtaylor-io-js'
 
 
+const ANALYTICS_TOPIC: string = "95e990d4-e445-4649-a28b-bfa3834c1408"
 const GUEST_LOGIN_ID: string = "guest"
 const GUEST_LOGIN_SECRET: string = "R973mcAR3ZZoMZdeqbCkknep46heMJJWYefYA86K_ckh27IVU-xeNaXBMi8AySbam39NNwrbjVp2yNAXlnK4Vg=="
 
@@ -44,6 +45,15 @@ const initSession = async () => {
   }
 
   await events.connect()
+  events.socket.send({
+    type: 'publish',
+    topic: ANALYTICS_TOPIC,
+    data: {
+      event: 'pageview',
+      path: window.location.pathname,
+      referrer: document.referrer,
+    },
+  })
 }
 
 
