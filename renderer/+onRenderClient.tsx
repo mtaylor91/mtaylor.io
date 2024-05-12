@@ -50,6 +50,8 @@ const initSession = async () => {
     topic: ANALYTICS_TOPIC,
     data: {
       event: 'pageview',
+      session: iam.sessionId,
+      address: iam.sessionAddress,
       path: window.location.pathname,
       referrer: document.referrer,
     },
