@@ -3,6 +3,11 @@ kind: pipeline
 type: kubernetes
 name: build
 steps:
+- name: build
+  image: docker.io/oven/bun:1
+  commands:
+  - bun install
+  - bun run build
 - name: image
   image: images.home.mtaylor.io/drone-kaniko:latest
   settings:
