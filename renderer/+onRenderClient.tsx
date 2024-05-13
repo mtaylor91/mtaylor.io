@@ -45,16 +45,12 @@ const initSession = async () => {
   }
 
   await events.connect()
-  events.socket.send({
-    type: 'publish',
-    topic: ANALYTICS_TOPIC,
-    data: {
-      event: 'pageview',
-      session: iam.sessionId,
-      address: iam.sessionAddress,
-      path: window.location.pathname,
-      referrer: document.referrer,
-    },
+  events.socket.publish(ANALYTICS_TOPIC, {
+    event: 'pageview',
+    session: iam.sessionId,
+    address: iam.sessionAddress,
+    path: window.location.pathname,
+    referrer: document.referrer,
   })
 }
 

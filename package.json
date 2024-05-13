@@ -22,7 +22,7 @@
     "eslint": "^8.55.0",
     "eslint-config-preact": "^1.3.0",
     "express": "^4.18.2",
-    "events-mtaylor-io-js": "github:mtaylor91/events-mtaylor-io-js#272d542",
+    "events-mtaylor-io-js": "github:mtaylor91/events-mtaylor-io-js#411283c",
     "iam-mtaylor-io-js": "github:mtaylor91/iam-mtaylor-io-js#fe99411",
     "libsodium": "^0.7.13",
     "libsodium-wrappers-sumo": "^0.7.13",
