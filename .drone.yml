@@ -30,7 +30,7 @@ steps:
   - git clone git@github.com:mtaylor91/argocd-deployment.git
   - cd argocd-deployment
   - ./bin/update-repo-tag.sh home/namespaced/mtaylor-io mtaylor.io $DRONE_TAG
-  - git commit -a -m "Update events-mtaylor-io to $DRONE_TAG"
+  - git commit -a -m "Update mtaylor-io to $DRONE_TAG"
   - git push origin main
   environment:
     SSH_KEY_BASE64:
