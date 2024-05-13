@@ -1,10 +1,10 @@
-FROM images.home.mtaylor.io/nodejs:0.0.3
+FROM docker.io/oven/bun:1
 RUN mkdir -p /usr/src/mtaylor.io
 WORKDIR /usr/src/mtaylor.io
 COPY package.json /usr/src/mtaylor.io/
-RUN yarn install
+RUN bun install
 COPY . /usr/src/mtaylor.io
-RUN yarn build
+RUN bun run build
 EXPOSE 3000
 ENV NODE_ENV=production
-ENTRYPOINT ["node", "--loader", "ts-node/esm", "server/index.ts"]
+ENTRYPOINT ["bun", "server/index.ts"]
