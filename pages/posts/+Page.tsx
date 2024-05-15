@@ -8,7 +8,9 @@ function Page() {
     <div class="posts">
       <h2>Posts</h2>
       <div class="post-series">
-        <h3>Meta-Crisis</h3>
+        <h3>
+          Meta-Crisis
+        </h3>
         <ul>
           <li>
             <a href="/posts/metacrisis/science">
