@@ -7,7 +7,7 @@ function Page() {
   return (
     <div class="post">
       <h1>
-        From a Positivist Realism<br/>Towards a Constructivist Idealism
+        From a Positivist Realism Towards a Constructivist Idealism
       </h1>
 
       <br/>
@@ -181,7 +181,7 @@ function Page() {
       </p>
 
       <p>
-        For too long, we've been fed the story that if we just let the wealthy accumulate more wealth, it will eventually "trickle down" to the rest of us. But after decades of widening inequality, it's clear that this trickle has been more of a drought for most Americans.
+        For too long, we've been fed the story that if we just let the wealthy accumulate more wealth, it will eventually "trickle down" to the rest of us. But after decades of widening inequality, it's clear that this trickle has been more of a drought for most people.
       </p>
 
       <p>
