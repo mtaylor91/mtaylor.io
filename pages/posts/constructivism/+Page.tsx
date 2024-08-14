@@ -7,7 +7,7 @@ function Page() {
   return (
     <div class="post">
       <h1>
-        From a Positivist Realism Towards a Constructivist Idealism
+        From Positivist Realism To Constructivist Idealism
       </h1>
 
       <br/>

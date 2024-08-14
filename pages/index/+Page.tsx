@@ -26,7 +26,7 @@ function Page() {
         <ul>
           <li>
             <a href="/posts/constructivism">
-              From a Positivist Realism Towards a Constructivist Idealism
+              From Positivist Realism To Constructivist Idealism
             </a>
           </li>
         </ul>
