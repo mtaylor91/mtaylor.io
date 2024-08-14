@@ -22,38 +22,11 @@ function Page() {
         </div>
       </div>
       <div class="posts">
-        <h2>
-          <a href="/posts">Recent Posts</a>
-        </h2>
+        <h2>Posts</h2>
         <ul>
           <li>
-            <a href="/posts/metacrisis/science">
-              Science and the Meta-Crisis
-            </a>
-          </li>
-          <li>
-            <a href="/posts/alignment/tapestry">
-              The Tapestry of Life
-            </a>
-          </li>
-          <li>
-            <a href="/posts/alignment/goals">
-              Goals and Values
-            </a>
-          </li>
-          <li>
-            <a href="/posts/alignment/value">
-              Value and Decision-Making
-            </a>
-          </li>
-          <li>
-            <a href="/posts/alignment/ai">
-              Aligning AI
-            </a>
-          </li>
-          <li>
-            <a href="/posts/alignment/humanity">
-              Aligning Humanity
+            <a href="/posts/constructivism">
+              From a Positivist Realism Towards a Constructivist Idealism
             </a>
           </li>
         </ul>
