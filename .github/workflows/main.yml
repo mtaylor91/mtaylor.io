@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: "Build"
-    runs-on: "k8s-home"
+    runs-on: "mtaylor-io-runners"
     container:
       image: "docker.io/oven/bun:1"
     steps:
