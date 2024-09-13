@@ -37,7 +37,7 @@ jobs:
     runs-on: "mtaylor-io-runners"
     needs: "build"
     container:
-      image: "gcr.io/kaniko-project/executor:latest"
+      image: "gcr.io/kaniko-project/executor:debug"
     steps:
     - name: "Checkout"
       uses: "actions/checkout@v4"
