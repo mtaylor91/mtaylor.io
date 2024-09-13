@@ -65,3 +65,17 @@ jobs:
         context: "."
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+  version:
+    name: "Release Version"
+    runs-on: "mtaylor-io-runners"
+    container:
+      image: "images.home.mtaylor.io/deployer:0.0.7"
+    needs: "docker"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+    - name: "Generate Tag"
+      id: "tag"
+      run: |
+        export tag=$(get-release-tag)
+        echo "tag=$tag" >> $GITHUB_OUTPUT
