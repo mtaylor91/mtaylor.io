@@ -38,8 +38,8 @@ jobs:
     needs: "build"
     services:
       docker:
-        image: "docker.io/docker:dind"
-        options: "--privileged --group-add root"
+        image: "docker.io/docker:dind-rootless"
+        options: "--privileged"
         volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
     container:
