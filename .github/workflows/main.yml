@@ -89,6 +89,8 @@ jobs:
   tag:
     name: "Tag Repository"
     runs-on: "mtaylor-io-runners"
+    container:
+      image: "images.home.mtaylor.io/deployer:0.0.7"
     needs:
     - "version"
     steps:
