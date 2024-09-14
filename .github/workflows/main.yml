@@ -4,6 +4,24 @@ on:
     branches:
     - "main"
 jobs:
+  version:
+    name: "Release Version"
+    runs-on: "mtaylor-io-runners"
+    container:
+      image: "images.home.mtaylor.io/deployer:0.0.7"
+    outputs:
+      tag: "${{ steps.version.outputs.tag }}"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+    - id: "version"
+      name: "Generate Version Tag"
+      run: |
+        set -eux
+        git config --global --add safe.directory $GITHUB_WORKSPACE
+        git fetch origin 'refs/tags/*:refs/tags/*'
+        export tag=$(get-release-tag)
+        echo "tag=$tag" >> $GITHUB_OUTPUT
   build:
     name: "Build Source"
     runs-on: "mtaylor-io-runners"
@@ -35,7 +53,9 @@ jobs:
   docker:
     name: "Build Docker Image"
     runs-on: "mtaylor-io-runners-dind"
-    needs: "build"
+    needs:
+    - "build"
+    - "version"
     steps:
     - name: "Set up Docker Buildx"
       uses: "docker/setup-buildx-action@v3"
@@ -58,6 +78,7 @@ jobs:
         images: "images.home.mtaylor.io/mtaylor.io"
         tags: |
           latest
+          ${{ needs.version.outputs.tag }}
           type=sha
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
@@ -65,20 +86,15 @@ jobs:
         context: "."
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-  version:
-    name: "Release Version"
+  tag:
+    name: "Tag Repository"
     runs-on: "mtaylor-io-runners"
-    container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
-    needs: "docker"
+    needs:
+    - "version"
     steps:
     - name: "Checkout"
       uses: "actions/checkout@v4"
-    - name: "Generate Tag"
-      id: "tag"
+    - name: "Tag"
       run: |
-        set -eux
-        git config --global --add safe.directory $GITHUB_WORKSPACE
-        git fetch origin 'refs/tags/*:refs/tags/*'
-        export tag=$(get-release-tag)
-        echo "tag=$tag" >> $GITHUB_OUTPUT
+        git tag -a ${{ needs.version.outputs.tag }} -m "Release ${{ needs.version.outputs.tag }}"
+        git push origin ${{ needs.version.outputs.tag }}
