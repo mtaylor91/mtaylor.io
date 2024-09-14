@@ -100,5 +100,7 @@ jobs:
       run: |
         set -eux
         git config --global --add safe.directory $GITHUB_WORKSPACE
+        git config --global user.email "githubactions@mtaylor.io"
+        git config --global user.name "GitHub Actions"
         git tag -a ${{ needs.version.outputs.tag }} -m "Release ${{ needs.version.outputs.tag }}"
         git push origin ${{ needs.version.outputs.tag }}
