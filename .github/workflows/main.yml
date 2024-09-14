@@ -145,7 +145,7 @@ jobs:
         git config --global user.email "githubactions@mtaylor.io"
         git config --global user.name "GitHub Actions"
         cd mtaylor.io
-        git push -f origin ${{ needs.docker.outputs.tag }}:release
+        git push -f origin HEAD:release
     - name: "Update argocd-deployment"
       shell: "bash"
       run: |
