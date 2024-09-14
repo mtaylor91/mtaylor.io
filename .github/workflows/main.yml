@@ -59,18 +59,28 @@ jobs:
     - "build"
     - "version"
     outputs:
+      sha: "${{ steps.tag.outputs.sha }}"
       tag: "${{ needs.version.outputs.tag }}"
     steps:
     - name: "Checkout"
       uses: "actions/checkout@v4"
-    - name: "Tag"
+    - id: tag
+      name: "Tag"
+      shell: "bash"
       run: |
-        set -eux
+        set -euxo pipefail
         git config --global --add safe.directory $GITHUB_WORKSPACE
         git config --global user.email "githubactions@mtaylor.io"
         git config --global user.name "GitHub Actions"
+        pushd deploy
+        kustomize edit set image images.home.mtaylor.io/mtaylor.io:${{ needs.version.outputs.tag }}
+        popd
+        git commit -a -m "Release ${{ needs.version.outputs.tag }}"
         git tag -a ${{ needs.version.outputs.tag }} -m "Release ${{ needs.version.outputs.tag }}"
         git push origin ${{ needs.version.outputs.tag }}
+        git push origin main:release
+        sha=$(git rev-parse --short HEAD)
+        echo "sha=$sha" >> $GITHUB_OUTPUT
   docker:
     name: "Build Docker Image"
     runs-on: "mtaylor-io-runners-dind"
@@ -99,7 +109,7 @@ jobs:
         tags: |
           latest
           ${{ needs.tag.outputs.tag }}
-          type=sha
+          sha-${{ needs.tag.outputs.sha }}
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
       with:
