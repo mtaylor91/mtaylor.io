@@ -33,7 +33,7 @@ jobs:
         retention-days: 0
         include-hidden-files: true
   version:
-    name: "Release Version"
+    name: "Assign Version"
     runs-on: "mtaylor-io-runners"
     container:
       image: "images.home.mtaylor.io/deployer:0.0.7"
