@@ -4,24 +4,6 @@ on:
     branches:
     - "main"
 jobs:
-  version:
-    name: "Release Version"
-    runs-on: "mtaylor-io-runners"
-    container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
-    outputs:
-      tag: "${{ steps.version.outputs.tag }}"
-    steps:
-    - name: "Checkout"
-      uses: "actions/checkout@v4"
-    - id: "version"
-      name: "Generate Version Tag"
-      run: |
-        set -eux
-        git config --global --add safe.directory $GITHUB_WORKSPACE
-        git fetch origin 'refs/tags/*:refs/tags/*'
-        export tag=$(get-release-tag)
-        echo "tag=$tag" >> $GITHUB_OUTPUT
   build:
     name: "Build Source"
     runs-on: "mtaylor-io-runners"
@@ -50,12 +32,50 @@ jobs:
         if-no-files-found: "error"
         retention-days: 0
         include-hidden-files: true
+  version:
+    name: "Release Version"
+    runs-on: "mtaylor-io-runners"
+    container:
+      image: "images.home.mtaylor.io/deployer:0.0.7"
+    outputs:
+      tag: "${{ steps.version.outputs.tag }}"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+    - id: "version"
+      name: "Generate Version Tag"
+      run: |
+        set -eux
+        git config --global --add safe.directory $GITHUB_WORKSPACE
+        git fetch origin 'refs/tags/*:refs/tags/*'
+        export tag=$(get-release-tag)
+        echo "tag=$tag" >> $GITHUB_OUTPUT
+  tag:
+    name: "Tag Repository"
+    runs-on: "mtaylor-io-runners"
+    container:
+      image: "images.home.mtaylor.io/deployer:0.0.7"
+    needs:
+    - "build"
+    - "version"
+    outputs:
+      tag: "${{ needs.version.outputs.tag }}"
+    steps:
+    - name: "Checkout"
+      uses: "actions/checkout@v4"
+    - name: "Tag"
+      run: |
+        set -eux
+        git config --global --add safe.directory $GITHUB_WORKSPACE
+        git config --global user.email "githubactions@mtaylor.io"
+        git config --global user.name "GitHub Actions"
+        git tag -a ${{ needs.version.outputs.tag }} -m "Release ${{ needs.version.outputs.tag }}"
+        git push origin ${{ needs.version.outputs.tag }}
   docker:
     name: "Build Docker Image"
     runs-on: "mtaylor-io-runners-dind"
     needs:
-    - "build"
-    - "version"
+    - "tag"
     steps:
     - name: "Set up Docker Buildx"
       uses: "docker/setup-buildx-action@v3"
@@ -78,7 +98,7 @@ jobs:
         images: "images.home.mtaylor.io/mtaylor.io"
         tags: |
           latest
-          ${{ needs.version.outputs.tag }}
+          ${{ needs.tag.outputs.tag }}
           type=sha
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
@@ -86,21 +106,3 @@ jobs:
         context: "."
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-  tag:
-    name: "Tag Repository"
-    runs-on: "mtaylor-io-runners"
-    container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
-    needs:
-    - "version"
-    steps:
-    - name: "Checkout"
-      uses: "actions/checkout@v4"
-    - name: "Tag"
-      run: |
-        set -eux
-        git config --global --add safe.directory $GITHUB_WORKSPACE
-        git config --global user.email "githubactions@mtaylor.io"
-        git config --global user.name "GitHub Actions"
-        git tag -a ${{ needs.version.outputs.tag }} -m "Release ${{ needs.version.outputs.tag }}"
-        git push origin ${{ needs.version.outputs.tag }}
