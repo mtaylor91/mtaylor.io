@@ -115,6 +115,7 @@ jobs:
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
       with:
+        push: true
         context: "."
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
@@ -130,7 +131,7 @@ jobs:
       uses: "actions/checkout@v4"
       with:
         path: "mtaylor.io"
-        ref: "refs/tags/${{ needs.tag.outputs.tag }}"
+        ref: "refs/tags/${{ needs.docker.outputs.tag }}"
     - name: "Checkout argocd-deployment"
       uses: "actions/checkout@v4"
       with:
@@ -144,12 +145,12 @@ jobs:
         git config --global user.email "githubactions@mtaylor.io"
         git config --global user.name "GitHub Actions"
         cd mtaylor.io
-        git push -f origin ${{ needs.tag.outputs.tag }}:release
+        git push -f origin ${{ needs.docker.outputs.tag }}:release
     - name: "Update argocd-deployment"
       shell: "bash"
       run: |
         set -euxo pipefail
         cd argocd-deployment
-        ./bin/update-repo-tag.sh home/namespaced/mtaylor-io mtaylor.io ${{ needs.tag.outputs.tag }}
-        git commit -a -m "Update mtaylor-io to ${{ needs.tag.outputs.tag }}"
+        ./bin/update-repo-tag.sh home/namespaced/mtaylor-io mtaylor.io ${{ needs.docker.outputs.tag }}
+        git commit -a -m "Update mtaylor-io to ${{ needs.docker.outputs.tag }}"
         git push origin main
