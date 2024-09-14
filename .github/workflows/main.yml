@@ -121,6 +121,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
   release:
     name: "Release"
+    environment: "production"
     runs-on: "mtaylor-io-runners"
     container:
       image: "images.home.mtaylor.io/deployer:0.0.7"
@@ -136,8 +137,9 @@ jobs:
       uses: "actions/checkout@v4"
       with:
         path: "argocd-deployment"
-        repository: "mtaylor91/argocd-deployment"
         ref: "main"
+        repository: "mtaylor91/argocd-deployment"
+        ssh-key: ${{ secrets.ARGOCD_DEPLOYMENT_SSH_PRIVATE_KEY }}
     - name: "Update Release Branch"
       shell: "bash"
       run: |
