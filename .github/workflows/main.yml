@@ -36,7 +36,7 @@ jobs:
     name: "Assign Version"
     runs-on: "mtaylor-io-runners"
     container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
+      image: "images.home.mtaylor.io/deployer:0.0.9"
     outputs:
       tag: "${{ steps.version.outputs.tag }}"
     steps:
@@ -54,7 +54,7 @@ jobs:
     name: "Tag Repository"
     runs-on: "mtaylor-io-runners"
     container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
+      image: "images.home.mtaylor.io/deployer:0.0.9"
     needs:
     - "build"
     - "version"
@@ -124,7 +124,7 @@ jobs:
     environment: "production"
     runs-on: "mtaylor-io-runners"
     container:
-      image: "images.home.mtaylor.io/deployer:0.0.7"
+      image: "images.home.mtaylor.io/deployer:0.0.9"
     needs:
     - "docker"
     steps:
@@ -156,3 +156,8 @@ jobs:
         ./bin/update-repo-tag.sh home/namespaced/mtaylor-io mtaylor.io ${{ needs.docker.outputs.tag }}
         git commit -a -m "Update mtaylor-io to ${{ needs.docker.outputs.tag }}"
         git push origin main
+    - name: "Sync argocd"
+      shell: "bash"
+      run: |
+        set -euxo pipefail
+        argocd app sync argocd/mtaylor-io
