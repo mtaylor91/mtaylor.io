@@ -164,3 +164,4 @@ jobs:
       run: |
         set -euxo pipefail
         argocd app sync argocd/mtaylor-io --grpc-web
+        argocd app wait argocd/mtaylor-io --grpc-web --timeout 300 --health --sync
