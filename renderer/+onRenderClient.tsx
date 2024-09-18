@@ -44,13 +44,13 @@ const initSession = async () => {
     window.localStorage.setItem('sessionToken', iam.sessionToken)
   }
 
-  events.publish(ANALYTICS_TOPIC, {
+  events.publish(ANALYTICS_TOPIC, { data: {
     event: 'pageview',
     session: iam.sessionId,
     address: iam.sessionAddress,
     path: window.location.pathname,
     referrer: document.referrer,
-  })
+  }})
 }
 
 
