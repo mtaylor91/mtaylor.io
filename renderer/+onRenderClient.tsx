@@ -44,8 +44,7 @@ const initSession = async () => {
     window.localStorage.setItem('sessionToken', iam.sessionToken)
   }
 
-  await events.connect()
-  events.socket.publish(ANALYTICS_TOPIC, {
+  events.publish(ANALYTICS_TOPIC, {
     event: 'pageview',
     session: iam.sessionId,
     address: iam.sessionAddress,

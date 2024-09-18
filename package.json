@@ -21,7 +21,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.55.0",
     "eslint-config-preact": "^1.3.0",
-    "events-mtaylor-io-js": "github:mtaylor91/events-mtaylor-io-js#691bedd",
+    "events-mtaylor-io-js": "github:mtaylor91/events-mtaylor-io-js#afe4c66",
     "express": "^4.18.2",
     "iam-mtaylor-io-js": "github:mtaylor91/iam-mtaylor-io-js#fe99411",
     "libsodium": "^0.7.13",
